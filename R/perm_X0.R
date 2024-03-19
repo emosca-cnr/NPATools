@@ -26,8 +26,10 @@ perm_X0 <- function(X0=NULL, A=NULL, k=99, seed_n = NULL, vertex_sets=NULL, meth
 	method <- match.arg(method, c("simple", "degree"))
 	bin_type <- match.arg(bin_type, c("interval", "number", "width"))
 	
+	cat("Permutation type:", method , "\n")
 	cat("Total permutations:", k+1, "\n")
 	cat("Minimum possible FDR:", 1/(k+1), "\n")
+	
 	
 	X0 <- Matrix(X0)
 	
@@ -38,6 +40,8 @@ perm_X0 <- function(X0=NULL, A=NULL, k=99, seed_n = NULL, vertex_sets=NULL, meth
 	row_bins <- rep(1, nrow(A))
 	
 	if(method == "degree"){
+		cat("cut_par:", cut_par, "\n")
+		cat("bin_type:", bin_type, "\n")
 		d <- rowSums(sign(A))
 		if(bin_type == "interval"){
 			row_bins <- as.numeric(cut_interval(d, cut_par)) ### use ggplot2
@@ -78,9 +82,8 @@ perm_X0 <- function(X0=NULL, A=NULL, k=99, seed_n = NULL, vertex_sets=NULL, meth
 		
 	}
 	
-	
 	vertex_sets <- factor(paste(vertex_sets, row_bins, sep = "_"))
-	print(table(vertex_sets))
+	cat("vertex sets and bins:", table(vertex_sets), "\n")
 	vertex_sets_lev <- levels(vertex_sets)
 	
 	vertex_sets_list <- split(rownames(A), vertex_sets)

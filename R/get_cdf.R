@@ -1,4 +1,6 @@
 #' Gene-level cdf estimation
+#' @param gene_expr normalized gene expression profile
+#' @param type "kcdf" will use Gaussian kernel while "ecdf" will use empirical estimate
 #' @export
 #' @importFrom spatstat.explore CDF
 #' @importFrom stats ecdf density
@@ -17,7 +19,7 @@ get_cdf <- function(gene_expr=NULL, type=c("ecdf", "kcdf")){
   }else{
     #gaussian
     d <- density(gene_expr)
-    f_kcdf <- spatstat.explore::CDF(d)
+    f_kcdf <- CDF(d)
     ans <- f_kcdf(gene_expr)
   }
   

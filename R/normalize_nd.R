@@ -1,6 +1,11 @@
-#' Normalization of Nd values
+#' Normalization of ND steady state values
+#' @param x numeric vector with steady state diffusion values
+#' @param method normalization approach
+#' @param ymin min value for min-max normalization
+#' @param ymax max value for min-max normalization
+#' @return Normalized ND values
 #' @export
-normalize_nd <- function(x=NULL, na.rm = TRUE, method=c("max", "min_max", "sum"), ymax=1, ymin=0) {
+normalize_nd <- function(x=NULL, method=c("max", "min_max", "sum"), ymax=1, ymin=0) {
   
   method <- match.arg(method, c("max", "min_max", "sum"))
   ans <- x

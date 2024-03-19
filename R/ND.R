@@ -25,6 +25,7 @@
 #' \item{\code{XsAll}}{ transient Xs matrices.}
 #' }
 #' @export
+#' @importFrom methods is
 #' @importFrom Matrix Matrix
 
 ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 

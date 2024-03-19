@@ -14,6 +14,7 @@
 #' @export
 #' @import Matrix
 #' @importFrom ggplot2 cut_interval cut_number cut_width
+#' @importFrom stats setNames
 #'
 
 perm_X0 <- function(X0=NULL, A=NULL, k=99, seed_n = NULL, vertex_sets=NULL, method=c("simple", "degree"), cut_par=20, bin_type=c("interval", "number", "width")){

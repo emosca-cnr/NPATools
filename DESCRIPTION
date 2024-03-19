@@ -4,9 +4,13 @@ Title: Network Diffusion for molecular networks
 Version: 0.1.0
 Author: Ettore Mosca
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Funtions to perform network diffusion, configure its input, analysis of its output
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
+Imports:
+  Matrix,
+  ggplot2,
+  spatstat.explore,
+  methods

@@ -13,4 +13,13 @@ Imports:
   Matrix,
   ggplot2,
   spatstat.explore,
-  methods
+  methods,
+  BiocParallel,
+  circlize,
+  ComplexHeatmap,
+  DOSE,
+  igraph,
+  openxlsx,
+  pals,
+  proxy,
+  qvalue

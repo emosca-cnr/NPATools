@@ -12,7 +12,7 @@
 #' @return list with permutations of X0 (where the first element of the list contains real data)
 #'
 #' @export
-#' @import Matrix
+#' @importFrom Matrix Matrix
 #' @importFrom ggplot2 cut_interval cut_number cut_width
 #' @importFrom stats setNames
 #'

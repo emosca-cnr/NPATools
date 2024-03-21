@@ -5,7 +5,7 @@
 #' @param A adjacency matrix
 #' @return normalized adjacency matrix
 #' @usage normalize_adj_mat(A)
-#' @import Matrix
+#' @importFrom Matrix Matrix rowSums
 #' @examples 
 #' \dontrun{normalize_adj_mat(A)}
 #' 

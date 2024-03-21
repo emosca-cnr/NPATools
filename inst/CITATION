@@ -1,6 +1,6 @@
 bibentry(
   bibtype  = "misc",
-  title    = "NetworkDiffusion: an R package for network diffusion on molecular networks",
+  title    = "NPATools: an R package for molecular network analysis and pathway analysis",
   author   = "Ettore Mosca",
   year     = "2024",
   note = "R package version 0.1.0"

@@ -1,4 +1,4 @@
-# NetworkDiffusion
+# NPATools
 
 The package contains functions to:
  - perform network diffusion on molecular networks;

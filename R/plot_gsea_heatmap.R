@@ -4,7 +4,9 @@
 #' @param a alpha over FDR
 #' @param na_col color for FDR > a
 #' @param max_gs maximum number of gene sets that will be plotted
-#' @param ... further arguments to ComplexHeatmap::Heatmap()
+#' @param p.stat column where p-values are taken from
+#' @param min.p p-values below this values will be set to NA
+#' @param ... further arguments to `ComplexHeatmap::Heatmap()`
 #' @importFrom ComplexHeatmap Heatmap
 #' @importFrom pals brewer.purples
 #' @importFrom grid gpar grid.text
@@ -16,7 +18,7 @@ plot_gsea_heatmap <- function(gsea_res=NULL, nes_sign=TRUE, a=0.25, p.stat="FDRq
   }
   
   if(!p.stat %in% colnames(gsea_res[[1]])){
-    stop("p.stat", p.stat, "is not in", colnames(ora_res[[1]]), ".\n")
+    stop("p.stat", p.stat, "is not in", colnames(gsea_res[[1]]), ".\n")
   }
   
   cat("Size: ", unlist(lapply(gsea_res, nrow)), "\n")

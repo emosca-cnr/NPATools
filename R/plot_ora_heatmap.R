@@ -4,6 +4,7 @@
 #' @param na_col color for FDR > a
 #' @param max_gs maximum number of gene sets that will be plotted
 #' @param p.stat p-value that will be plotted
+#' @param min.p p-values below this values will be set to NA
 #' @param ... further arguments to ComplexHeatmap::Heatmap()
 #' @importFrom ComplexHeatmap Heatmap
 #' @importFrom pals brewer.purples

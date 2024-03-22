@@ -51,15 +51,15 @@ es <- function(idx=NULL, x=NULL){
       
       tags <- sum(idx <= wm)
       list_top <- wm
-      #lead_edge_subset <- paste0(names(x)[intersect(1:wm, idx)], collapse = ";")
-      lead_edge_subset <- paste(names(x)[intersect(1:wm, idx)], paste0("(", format(x[intersect(1:wm, idx)], digits=2, justify="none"), ")"), sep="", collapse = ";")
+      lead_edge_subset <- paste0(names(x)[intersect(1:wm, idx)], collapse = ";")
+      #lead_edge_subset <- paste(names(x)[intersect(1:wm, idx)], paste0("(", format(x[intersect(1:wm, idx)], digits=2, justify="none"), ")"), sep="", collapse = ";")
       
     }else{
       
       tags <- sum(idx >= wm)
       list_top <- N - (wm-1)
-      #lead_edge_subset <- paste0(names(x)[intersect(wm:N, idx)], collapse = ";")
-      lead_edge_subset <- paste(names(x)[intersect(wm:N, idx)], paste0("(", format(x[intersect(wm:N, idx)], digits=2, justify="none"), ")"), sep="", collapse = ";")
+      lead_edge_subset <- paste0(names(x)[intersect(wm:N, idx)], collapse = ";")
+      #lead_edge_subset <- paste(names(x)[intersect(wm:N, idx)], paste0("(", format(x[intersect(wm:N, idx)], digits=2, justify="none"), ")"), sep="", collapse = ";")
       
     }
     

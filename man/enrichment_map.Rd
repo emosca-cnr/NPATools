@@ -10,21 +10,22 @@ enrichment_map(
   min_sim = 0.7,
   clustering_f = cluster_fast_greedy,
   min_comp_size = 1,
-  gs_size = NULL,
-  add.top.k = NULL
+  gs_size = NULL
 )
 }
 \arguments{
-\item{gs_size}{named vector with size f the gene-sets in `gs_list`}
+\item{gs_scores}{named vector of pathway scores}
 
-\item{gs_score}{named vector of pathway scores}
+\item{gene_set_sim}{gene set similarity calculated through `calc_gs_sim()`}
 
-\item{coeff}{threshold for the similarity score between two gene sets}
+\item{min_sim}{threshold for the similarity score between two gene sets}
 
-\item{min_comm_size}{minimum size of a community to be considered in the enrichment map. If `min_comm_size = 1` and `all_gs = TRUE`,
+\item{clustering_f}{greph clustering function, `igraph::cluster_fast_greedy()` by default}
+
+\item{min_comp_size}{minimum size of a community to be considered in the enrichment map
 then all gene-sets are displayed}
 
-\item{set_sim_df}{optional, data.frame with three columns 'set1', 'set2' and 'sim'}
+\item{gs_size}{named vector with size of the gene-sets in `gs_scores`}
 }
 \value{
 The function returns a list containing: 
@@ -42,7 +43,6 @@ This functions calculates similarities between gene-sets and plot a resulting en
 }
 \details{
 enrichment_map() function calculates similarities between each gene-set pair by using `method` metric. Subsequently,
- these similarities are filtered to maintain the ones >= `coeff`. `comm_method` algorithm is then used to identify communities, 
- which may be filtered to plot only the ones composed by at least `min_comm_size` gene-sets. Enrichment map is then plotted by using
- `ggraph` package.
+ these similarities are filtered to maintain the ones >= `min_sim`. `clustering_f` function is then used to identify communities, 
+ which may be filtered to plot only the ones composed by at least `min_comp_size` gene-sets.
 }

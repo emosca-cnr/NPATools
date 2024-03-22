@@ -23,6 +23,8 @@ plot_ora_heatmap(
 
 \item{na_col}{color for FDR > a}
 
+\item{min.p}{p-values below this values will be set to NA}
+
 \item{max_gs}{maximum number of gene sets that will be plotted}
 
 \item{...}{further arguments to ComplexHeatmap::Heatmap()}

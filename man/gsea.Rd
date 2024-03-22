@@ -11,6 +11,7 @@ gsea(
   min_size = 5,
   max_size = 500,
   min_tags = 3,
+  abs_val = NULL,
   decreasing = NULL,
   BPPARAMGsl = NULL,
   BPPARAMK = NULL,
@@ -32,6 +33,8 @@ gsea(
 
 \item{min_tags}{minimum number of tags to consider the ES; gene sets with tags < min_tags will be excluded}
 
+\item{abs_val}{TRUE/FALSE vector that specifies whether to consider absolute values or not in each column of rl; must be of length equal to `ncol(rl)`. If NULL, values will be considered as they are provided}
+
 \item{decreasing}{TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to `ncol(rl)`. If NULL, all columns will be ranked in decreasing order}
 
 \item{BPPARAMGsl}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mc_cores_path x mc_cores_perm}
@@ -45,7 +48,7 @@ gsea(
 \item{min.k}{minimum number of permutations to obtain valid permutation-based statistics}
 }
 \value{
-data.frame with: es, enrichment score; nes normalized enrichment score; nperm, number of permutations actually used; p-value, empirical p-value; adjusted p-value, BH FDR; q_val: q-value estimnated from p-values using qvalue package; FDR q-value, empirical FDR; tags, leading edge size; tags_perc, leading edge size percent over gene set; list_top, rank of the ES; list_top_perc, rank of the ES percent over full ranked list; lead_edge, signal strength; lead_edge_subset, gene names of the leading edge
+data.frame with: es, enrichment score; nes normalized enrichment score; nperm, number of permutations actually used; p-value, empirical p-value; adjusted p-value, BH FDR; q_val: q-value estimnated from p-values using qvalue package; FDR q-value, empirical FDR; tags, leading edge size; tags_perc, leading edge size percent over gene set; list_top, rank of the ES; list_top_perc, rank of the ES percent over full ranked list; lead_edge, signal strength; lead_edge_subset, gene names of the leading edge, # negative tags, # positive tags, positive tags ratio
 }
 \description{
 Gene Sert Enrichment Analysis

@@ -22,11 +22,15 @@ plot_gsea_heatmap(
 
 \item{a}{alpha over FDR}
 
+\item{p.stat}{column where p-values are taken from}
+
 \item{na_col}{color for FDR > a}
 
 \item{max_gs}{maximum number of gene sets that will be plotted}
 
-\item{...}{further arguments to ComplexHeatmap::Heatmap()}
+\item{min.p}{p-values below this values will be set to NA}
+
+\item{...}{further arguments to `ComplexHeatmap::Heatmap()`}
 }
 \description{
 Plot heatmap of GSEA results for multiple runs

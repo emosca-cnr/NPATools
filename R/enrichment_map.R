@@ -1,15 +1,15 @@
 #' Enrichment map
 #' @description This functions calculates similarities between gene-sets and plot a resulting enrichment map
 #' @details enrichment_map() function calculates similarities between each gene-set pair by using `method` metric. Subsequently,
-#'  these similarities are filtered to maintain the ones >= `coeff`. `comm_method` algorithm is then used to identify communities, 
-#'  which may be filtered to plot only the ones composed by at least `min_comm_size` gene-sets. Enrichment map is then plotted by using
-#'  `ggraph` package.
-#' @param gs_score named vector of pathway scores
-#' @param coeff threshold for the similarity score between two gene sets
-#' @param min_comm_size minimum size of a community to be considered in the enrichment map. If `min_comm_size = 1` and `all_gs = TRUE`,
+#'  these similarities are filtered to maintain the ones >= `min_sim`. `clustering_f` function is then used to identify communities, 
+#'  which may be filtered to plot only the ones composed by at least `min_comp_size` gene-sets. 
+#' @param gs_scores named vector of pathway scores
+#' @param gene_set_sim gene set similarity calculated through `calc_gs_sim()`
+#' @param min_sim threshold for the similarity score between two gene sets
+#' @param clustering_f greph clustering function, `igraph::cluster_fast_greedy()` by default 
+#' @param min_comp_size minimum size of a community to be considered in the enrichment map
 #'  then all gene-sets are displayed
-#' @param gs_size named vector with size f the gene-sets in `gs_list`
-#' @param set_sim_df optional, data.frame with three columns 'set1', 'set2' and 'sim'
+#' @param gs_size named vector with size of the gene-sets in `gs_scores`
 #' @return The function returns a list containing: 
 #' \itemize{
 #'  \item igraph = network object used for plotting the enrichment map
@@ -23,7 +23,7 @@
 #' @export
 #'
 enrichment_map <- function(gs_scores=NULL, gene_set_sim=NULL, min_sim=0.7, clustering_f=cluster_fast_greedy, min_comp_size=1,
-                           gs_size=NULL, add.top.k=NULL){
+                           gs_size=NULL){
   #method=c('overlap')
   #similarity method and coeff----------------
   

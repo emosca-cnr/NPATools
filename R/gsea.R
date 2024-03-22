@@ -4,6 +4,7 @@
 #' @param k integer, number of permutations
 #' @param min_size minimum gene set size
 #' @param max_size maximum gene set size
+#' @param abs_val TRUE/FALSE vector that specifies whether to consider absolute values or not in each column of rl; must be of length equal to `ncol(rl)`. If NULL, values will be considered as they are provided
 #' @param decreasing TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to `ncol(rl)`. If NULL, all columns will be ranked in decreasing order
 #' @param BPPARAMGsl number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mc_cores_path x mc_cores_perm
 #' @param BPPARAMK number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mc_cores_path x mc_cores_perm
@@ -15,10 +16,10 @@
 #' @importFrom qvalue qvalue
 #' @importFrom utils write.table
 #' @importFrom stats p.adjust
-#' @return data.frame with: es, enrichment score; nes normalized enrichment score; nperm, number of permutations actually used; p-value, empirical p-value; adjusted p-value, BH FDR; q_val: q-value estimnated from p-values using qvalue package; FDR q-value, empirical FDR; tags, leading edge size; tags_perc, leading edge size percent over gene set; list_top, rank of the ES; list_top_perc, rank of the ES percent over full ranked list; lead_edge, signal strength; lead_edge_subset, gene names of the leading edge
+#' @return data.frame with: es, enrichment score; nes normalized enrichment score; nperm, number of permutations actually used; p-value, empirical p-value; adjusted p-value, BH FDR; q_val: q-value estimnated from p-values using qvalue package; FDR q-value, empirical FDR; tags, leading edge size; tags_perc, leading edge size percent over gene set; list_top, rank of the ES; list_top_perc, rank of the ES percent over full ranked list; lead_edge, signal strength; lead_edge_subset, gene names of the leading edge, # negative tags, # positive tags, positive tags ratio
 #' @export
 
-gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, decreasing=NULL, BPPARAMGsl=NULL, BPPARAMK=NULL, description=NULL, out_file_prefix="gsea_res", min.k=50){
+gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, abs_val=NULL, decreasing=NULL, BPPARAMGsl=NULL, BPPARAMK=NULL, description=NULL, out_file_prefix="gsea_res", min.k=50){
   
   #checks
   if(!is.matrix(rl) | !is.numeric(rl)){
@@ -28,6 +29,11 @@ gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, 
   if(is.null(decreasing)){
     decreasing <- rep(TRUE, ncol(rl))
   }
+  
+  if(is.null(abs_val)){
+    abs_val <- rep(FALSE, ncol(rl))
+  }
+  
   
   if(length(decreasing) != ncol(rl)){
     stop("length(decreasing) must be equal to ncol(rl)")
@@ -57,11 +63,18 @@ gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, 
   
   #create the list of ranked vectors
   cat("Decreasing:", decreasing, "\n")
+  cat("Absolute values:", abs_val, "\n")
+  
   rll <- vector('list', ncol(rl))
   names(rll) <- colnames(rl)
+  rll_orig <- rll
   for(i in 1:length(rll)){
-    #rll[[i]] <- sort(array(rl[, i], dimnames = list(rownames(rl))), decreasing = decreasing[i])
-    rll[[i]] <- sort(setNames(rl[, i], rownames(rl)), decreasing = decreasing[i])
+    
+    rll_orig[[i]] <- rll[[i]] <-  setNames(rl[, i], rownames(rl))
+    if(abs_val[i]){
+      rll[[i]] <- abs(rll[[i]])
+    }
+    rll[[i]] <- sort(rll[[i]], decreasing = decreasing[i])
     if(length(unique(rll[[i]])) != length(rll[[i]])){
       cat("Found ties in ranked list ", names(rll)[i], "!!!\n")
     }
@@ -80,6 +93,16 @@ gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, 
   names(leading_edge) <- names(rll)
   for(i in 1:length(leading_edge)){
     leading_edge[[i]] <- do.call(rbind, lapply(real_es_data, function(x) x[[i]][, -1])) #rm the enrichment score
+    
+    # add statistics to the symbol names
+    res_split <- strsplit(leading_edge[[i]][, 6], ";")
+    lead_edge_subset <- lapply(res_split, function(x) gsub(" ", "", paste(names(rll[[i]])[match(x, names(rll[[i]]))], paste0("(", format(rll_orig[[i]][match(x, names(rll_orig[[i]]))], digits=2, justify="none"), ")"), sep="", collapse = ";")))
+    leading_edge[[i]][, 6] <- unlist(lead_edge_subset)
+    
+    lead_edge_subset_posneg <- do.call(rbind, lapply(res_split, function(x) table(factor(sign(rll_orig[[i]][match(x, names(rll_orig[[i]]))]), levels=c(-1, 1), labels = c("neg", "pos")))))
+    leading_edge[[i]] <- cbind(leading_edge[[i]], lead_edge_subset_posneg)
+    leading_edge[[i]]$pos_ratio <- leading_edge[[i]]$pos / c(leading_edge[[i]]$pos + leading_edge[[i]]$neg)
+    
   }
   
   #permutations
@@ -239,7 +262,7 @@ gsea <- function(rl=NULL, gsl=NULL, k=99, min_size=5, max_size=500, min_tags=3, 
     
     wb <- createWorkbook()
     
-    legend_txt <- data.frame(column=c("size", "es", "nes", "nperm", "p_val", "adj_p_val", "q_val", "FDRq", "tags", 	"tags_perc", "list_top", "list_top_perc", "lead_edge", "lead_edge_subset"), description=c("gene set size", "enrichment score", "normalized enriched score", "number of permutations actually used", "empirical p-value", "FDR (BH)", "FDR (qvalue)", "FDR (empirical)", "leading edge size", "leading edge size percent over gene set", "rank of the ES", "rank of the ES percent over full ranked list", "signal strength", "gene names of the leading edge"), stringsAsFactors = F)
+    legend_txt <- data.frame(column=c("size", "es", "nes", "nperm", "p_val", "adj_p_val", "q_val", "FDRq", "tags", 	"tags_perc", "list_top", "list_top_perc", "lead_edge", "lead_edge_subset", "neg", "pos", "pos_ratio"), description=c("gene set size", "enrichment score", "normalized enriched score", "number of permutations actually used", "empirical p-value", "FDR (BH)", "FDR (qvalue)", "FDR (empirical)", "leading edge size", "leading edge size percent over gene set", "rank of the ES", "rank of the ES percent over full ranked list", "signal strength", "gene names of the leading edge", "# negative tags", "# positive tags", "positive tags ratio"), stringsAsFactors = F)
     addWorksheet(wb, "Legend")
     writeData(wb, "Legend", legend_txt)
     

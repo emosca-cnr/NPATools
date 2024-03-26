@@ -1,10 +1,10 @@
 Package: NPATools
 Type: Package
-Title: Network Diffusion for molecular networks
-Version: 0.1.0
+Title: Tools for analysis of networks and pathways
+Version: 0.2.0
 Author: Ettore Mosca
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
-Description: Funtions to perform network diffusion, configure its input, analysis of its output.
+Description: Tools for analysis of networks and pathways
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -22,4 +22,7 @@ Imports:
   openxlsx,
   pals,
   proxy,
-  qvalue
+  qvalue,
+  brainGraph,
+  plotrix
+

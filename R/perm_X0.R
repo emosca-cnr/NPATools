@@ -26,6 +26,8 @@ perm_X0 <- function(X0=NULL, A=NULL, k=99, seed_n = NULL, vertex_sets=NULL, meth
 	method <- match.arg(method, c("simple", "degree"))
 	bin_type <- match.arg(bin_type, c("interval", "number", "width"))
 	
+	stopifnot(rownames(X0)==rownames(A))
+	
 	cat("Permutation type:", method , "\n")
 	cat("Total permutations:", k+1, "\n")
 	cat("Minimum possible FDR:", 1/(k+1), "\n")

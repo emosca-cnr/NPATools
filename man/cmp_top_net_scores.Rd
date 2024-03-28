@@ -10,7 +10,7 @@ cmp_top_net_scores(
   column = 1,
   sigStatNR = "p",
   sigStatEn = "p",
-  norm = TRUE,
+  norm = FALSE,
   top = 5
 )
 }

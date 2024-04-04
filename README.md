@@ -3,7 +3,7 @@
 The package contains functions to:
  - perform network diffusion (ND) on molecular networks;
  - obtain ND input matrix X0 from gene expression data via kernel estimation;
- - permute X0;
+ - permute the vertices of a graph, freely, conserving vertex degree and/or conserving disntinct vertex subsets;
  - normalize adjacency matrix;
  - normalize ND output matrix Xs;
  - calculate gene set scores from Xs;

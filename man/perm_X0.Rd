@@ -4,33 +4,12 @@
 \alias{perm_X0}
 \title{Permutation of X0}
 \usage{
-perm_X0(
-  X0 = NULL,
-  A = NULL,
-  k = 99,
-  seed_n = NULL,
-  vertex_sets = NULL,
-  method = c("simple", "degree"),
-  cut_par = 20,
-  bin_type = c("interval", "number", "width")
-)
+perm_X0(X0 = NULL, perms = NULL)
 }
 \arguments{
 \item{X0}{matrix; a score matrix X0, in which each column (layer) is a score vector over all vertices of A.}
 
-\item{A}{adjacency matrix; it could be either normalized or not}
-
-\item{k}{number of permutations.}
-
-\item{seed_n}{optional numeric; to specify the seed for (pseudo) random number generation; using the same seed}
-
-\item{vertex_sets}{NULL; list with subsets of X0 rownames; to control the permutation of values of each column of X0 within particular sets of vertices; this is useful when the values of at least one column of X0 can be assigned only to a subset of vertices;}
-
-\item{method}{method to perform permutation of the row names of X0; "simple" permutes row names only based on vertex sets; "degree" permutes row names based on vertex_sets and vertex degree}
-
-\item{cut_par}{number of intervals or width of the intervals}
-
-\item{bin_type}{"interval" will use cut_interval(), "number" will use cut_number() while "width" will use cut_width() function from ggplot2}
+\item{perms}{list of permutations of the rownames of X0, obtained by means of `permute_vertices()`}
 }
 \value{
 list with permutations of X0 (where the first element of the list contains real data)

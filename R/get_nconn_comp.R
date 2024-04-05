@@ -4,7 +4,7 @@
 #' @param x igraph obejct
 #' @param n minimum size of a connected component
 #' @return igraph object
-#' @import igraph
+#' @importFrom igraph induced.subgraph
 #' @export
 
 get_nconn_comp <- function(x=NULL, n=NULL){

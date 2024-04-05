@@ -4,6 +4,9 @@
 #' @param hCut where to place the division of the vertical axis
 #' @param useP whether p is used in the vertical axis 
 #' @export
+#' @importFrom igraph V get.vertex.attribute
+#' @importFrom plotrix thigmophobe.labels
+#' @importFrom graphics layout par rect points plot.new legend
 
 plot_fc <- function(topNetworks = NULL,
                     labelBy = NULL,

@@ -1,26 +1,17 @@
 #' Plot network enrichment results
 #'
+#' @param netEnrRes output of `assess_enrichment()`
 #' @param showTopSig if not NULL, an integer that indicatesd the number of top significant ranks to display
 #' @param sigStat the quantity to be plotted: for ORA, can be any of "er", "p" or "p_adj"; for GSEA can be "es", "p", "p_val", "nes" or "FDRq"
 #' @export
+#' @importFrom graphics lines
 
 plot_net_enrich <-
   function(netEnrRes = NULL,
            showTopSig = 10,
-           sigStat = "p_adj",
-           file = NULL) {
+           sigStat = "p_adj"){
+    
     en_res <- netEnrRes$en_summary
-    
-    if (!is.null(file)) {
-      jpeg(
-        file,
-        width = 180,
-        height = 90,
-        res = 300,
-        units = "mm"
-      )
-    }
-    
     
     par(mfrow = c(1, 2))
     par(mgp = c(1.5, 0.5, 0))
@@ -69,8 +60,4 @@ plot_net_enrich <-
                            0.7)#, pos = 3)
     }
     
-    
-    if (!is.null(file)) {
-      dev.off()
-    }
-  }
+}

@@ -22,8 +22,6 @@ plot_score_by_comm(
 \item{min_comm_size}{minimum community size}
 
 \item{top_genes_to_label}{number of genes to label}
-
-\item{out_file}{out file name}
 }
 \description{
 Boxplots of a score by community

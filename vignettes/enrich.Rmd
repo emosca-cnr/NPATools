@@ -8,7 +8,7 @@ output:
     toc: true
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{ORA and GSEA with Ulisse}
+  %\VignetteIndexEntry{ORA and GSEA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

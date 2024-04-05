@@ -42,6 +42,12 @@ plot_network(
 
 \item{legendOff}{legend}
 
+\item{labelComm}{whether to label comminuty or not}
+
+\item{labelCommCex}{cex for community labels}
+
+\item{labelCommCol}{color for community labels}
+
 \item{...}{additional arguments to `plot.igraph()`}
 }
 \description{

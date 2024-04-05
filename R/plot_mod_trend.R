@@ -1,11 +1,8 @@
 #' Plot modularity trend
 #' @param assessModRes result of `assess_modularity()`
-#' @param file filename
 #' @return plot
-#' @examples
-#' \dontrun{plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")}
-#' @usage plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")
 #' @export
+#' @importFrom graphics layout par points plot.new legend abline mtext
 
 plot_modu_trend <- function(assessModRes = NULL) {
         

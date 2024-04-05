@@ -4,19 +4,14 @@
 \alias{plot_modu_trend}
 \title{Plot modularity trend}
 \usage{
-plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")
+plot_modu_trend(assessModRes = NULL)
 }
 \arguments{
 \item{assessModRes}{result of `assess_modularity()`}
-
-\item{file}{filename}
 }
 \value{
 plot
 }
 \description{
 Plot modularity trend
-}
-\examples{
-\dontrun{plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")}
 }

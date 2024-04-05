@@ -11,7 +11,6 @@ assess_enrichment(
   X0Vector = NULL,
   type = c("gsea", "ora"),
   k = 99,
-  critical = NULL,
   minComponentSize = 2,
   minNetSize = 10,
   minKNes = 10,
@@ -28,7 +27,19 @@ assess_enrichment(
 
 \item{X0Vector}{named numeric vector that will be tested with GSEA or ORA. In case of GSEA it will be ranked by decreasing orderg, while in the case of ORA the names of the X0 values grater than 0 will be tested for enrichment, while all X0 names will be the universe.}
 
+\item{type}{gsea or ora}
+
 \item{k}{number of permutations}
+
+\item{minComponentSize}{size of the smallest graph component}
+
+\item{minNetSize}{minimum network size}
+
+\item{minKNes}{minimum k for considering a NES "confident"}
+
+\item{BPPARAMGsl}{BiocParallelParam instance to parallelize over gene sets. See `BiocParallel::bplapply()`}
+
+\item{BPPARAMK}{BiocParallelParam instance to paralleliz over permutations. `BiocParallel::bplapply()`}
 }
 \description{
 assess enrichment of the top networks

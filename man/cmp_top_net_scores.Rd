@@ -7,7 +7,6 @@
 cmp_top_net_scores(
   NRRes = NULL,
   netEnrRes = NULL,
-  column = 1,
   sigStatNR = "p",
   sigStatEn = "p",
   norm = FALSE,
@@ -26,8 +25,6 @@ cmp_top_net_scores(
 \item{norm}{if TRUE (default) the two disitribution of -log10(p) will be mapped in the interval [1, 2]}
 
 \item{top}{number of top ranks that will be plotted in red}
-
-\item{columm}{which column to consider; in case multiple runs have been done}
 }
 \description{
 Define significance for enriched genes

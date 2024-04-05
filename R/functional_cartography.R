@@ -9,8 +9,7 @@
 #' @param hCut value to divide the horizontal axis
 #' @return dataframe with pc, wmz, region, description and role
 #' @importFrom brainGraph part_coeff
-#' @import igraph
-#' @import utils
+#' @importFrom igraph V get.vertex.attribute
 #' @export
 
 functional_cartography <- function(topNetwork = NULL, labelBy = NULL, useP = FALSE, hCut = NULL) {

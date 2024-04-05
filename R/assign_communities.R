@@ -3,6 +3,7 @@
 #' @param g igraph object
 #' @param commList community structure
 #' @export
+#' @importFrom igraph V V<-
 #' 
 
 assign_communities <- function(g=NULL, commList=NULL){

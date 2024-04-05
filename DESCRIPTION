@@ -4,11 +4,13 @@ Title: Tools for analysis of networks and pathways
 Version: 0.2.0
 Author: Ettore Mosca
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
-Description: Tools for analysis of networks and pathways
+Description: Tools for analysis of networks and pathways.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr
+Suggests: knitr
 Imports:
   Matrix,
   ggplot2,

@@ -8,7 +8,7 @@
 #' @param max_size maximum gene set size
 #' @param out_file_prefix prefix for .xlsx and .txt output files
 #' @param description optional named vector with gene set description; names must be gene set identifiers
-#' @import openxlsx
+#' @importFrom openxlsx createWorkbook saveWorkbook addWorksheet writeData
 #' @importFrom qvalue qvalue
 #' @importFrom stats p.adjust
 #' @importFrom utils write.table

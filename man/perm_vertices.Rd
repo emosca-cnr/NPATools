@@ -23,7 +23,7 @@ perm_vertices(
 
 \item{vertex_sets}{optional list with subsets of names(vert_deg); each subset will be permuteted separately; this is useful when distinct sets of vertices have different meaning;}
 
-\item{method}{method to perform permutation of the row names of X0; "simple" permutes row names only based on vertex sets; "degree" permutes row names based on vertex_sets and vertex degree}
+\item{method}{method to perform permutation; "simple" permutes vertices only based on vertex sets; "degree" permutes vertices based on vertex_sets and vertex degree}
 
 \item{cut_par}{number of intervals or width of the intervals}
 

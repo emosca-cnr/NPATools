@@ -4,10 +4,11 @@
 #' @param score_attr  attrubute that contains gene scores; high values are considered significant
 #' @param min_comm_size minimum community size
 #' @param top_genes_to_label number of genes to label
-#' @param out_file out file name
 #' @importFrom plotrix thigmophobe.labels
 #' @importFrom graphics boxplot axis
-#' @import igraph
+#' @importFrom igraph get.vertex.attribute V
+#' @importFrom graphics points
+
 #' @export
 
 plot_score_by_comm <- function(g=NULL, comm_attr="comm_id", score_attr=NULL, min_comm_size=5, top_genes_to_label=3){

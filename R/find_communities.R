@@ -8,14 +8,7 @@
 #' @param methods one or more of "fastgreedy", "labprop", "walktrap", 
 #' "eigen", "multilev", "infomap"
 #' @return list od community objects
-#' @usage find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, 
-#' methods=c("fastgreedy", "labprop", "walktrap", "eigen", 
-#' "multilev", "infomap"))
-#' @examples  
-#' \dontrun{find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE,
-#'  methods=c("fastgreedy", "labprop", "walktrap", "eigen",
-#'   "multilev", "infomap"))}
-#' @import igraph
+#' @importFrom igraph fastgreedy.community modularity label.propagation.community walktrap.community leading.eigenvector.community multilevel.community infomap.community
 #' @export
 find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL, 
                              verbose=TRUE, methods=c("fastgreedy", "multilev")){
@@ -31,9 +24,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
         if(verbose)
             print("fastgreedy")
         idx <- which(grepl("fastgreedy", methods))
-        commList[[idx]] <- igraph::fastgreedy.community(g, weights=eWeights)
+        commList[[idx]] <- fastgreedy.community(g, weights=eWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership,
+            modularity(g, commList[[idx]]$membership,
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
     }
@@ -42,9 +35,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
             print("labprop")
         idx <- which(grepl("labprop", methods))
         commList[[idx]] <- 
-            igraph::label.propagation.community(g, weights=eWeights)
+            label.propagation.community(g, weights=eWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership, 
+            modularity(g, commList[[idx]]$membership, 
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
     }
@@ -52,9 +45,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
         if(verbose)
             print("walktrap")
         idx <- which(grepl("walktrap", methods))
-        commList[[idx]] <- igraph::walktrap.community(g, weights=eWeights)
+        commList[[idx]] <- walktrap.community(g, weights=eWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership, 
+            modularity(g, commList[[idx]]$membership, 
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
     }
@@ -63,9 +56,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
             print("eigen")
         idx <- which(grepl("eigen", methods))
         commList[[idx]] <- 
-            igraph::leading.eigenvector.community(g, weights=eWeights)
+            leading.eigenvector.community(g, weights=eWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership, 
+            modularity(g, commList[[idx]]$membership, 
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
     }
@@ -74,9 +67,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
             print('multilev')
         idx <- which(grepl("multilev", methods))
         commList[[idx]] <-
-            igraph::multilevel.community(g, weights=eWeights)
+            multilevel.community(g, weights=eWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership, 
+            modularity(g, commList[[idx]]$membership, 
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
     }
@@ -85,10 +78,9 @@ find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL,
             print('infomap')
         idx <- which(grepl("infomap", methods))
         commList[[idx]] <- 
-            igraph::infomap.community(g, eWeights=eWeights, 
-                                      vWeights=vWeights)
+            infomap.community(g, e.weights = eWeights, v.weights = vWeights)
         commInfo$modularity[idx] <- 
-            igraph::modularity(g, commList[[idx]]$membership, 
+            modularity(g, commList[[idx]]$membership, 
                                weights=eWeights)
         commInfo$n[idx] <- max(commList[[idx]]$membership)
   }

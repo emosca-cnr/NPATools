@@ -6,8 +6,9 @@
 #' @param BPPARAM BBPARAM
 #' @param minComponentSize minimum size of connected components
 #' @export
-#' @import BiocParallel igraph
-#' 
+#' @importFrom  BiocParallel bplapply SerialParam
+#' @importFrom igraph induced_subgraph V vcount ecount largest_component
+
 assess_modularity <- function(G = NULL, vertices = NULL, ranks = NULL, commMethods=c("fastgreedy", "multilev"),  BPPARAM = NULL, minComponentSize=2) {
   
   if (is.null(ranks)) {
@@ -26,7 +27,7 @@ assess_modularity <- function(G = NULL, vertices = NULL, ranks = NULL, commMetho
   names(top_nets_conn) <- ranks
   
   
-  top_comm <- BiocParallel::bplapply(top_nets, function(g_i) {
+  top_comm <- bplapply(top_nets, function(g_i) {
     #print(x)
     comm <- find_communities(g_i, verbose = F, methods = commMethods)
     best <- comm$info
@@ -36,7 +37,7 @@ assess_modularity <- function(G = NULL, vertices = NULL, ranks = NULL, commMetho
   }, BPPARAM = BPPARAM)
   top_comm <- do.call(rbind, top_comm)
   
-  top_comm_conn <- BiocParallel::bplapply(top_nets_conn, function(g_i) {
+  top_comm_conn <- bplapply(top_nets_conn, function(g_i) {
     #print(x)
     comm <- find_communities(g_i, verbose = F, methods = commMethods)
     best <- comm$info

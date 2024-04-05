@@ -12,10 +12,15 @@
 #' @param commWb distance between communities
 #' @param lo layout 
 #' @param legendOff legend
+#' @param labelComm whether to label comminuty or not
+#' @param labelCommCex cex for community labels
+#' @param labelCommCol color for community labels
 #' @param ... additional arguments to `plot.igraph()`
 #' @export
-#' @import igraph
+#' @importFrom igraph get.vertex.attribute V layout_with_fr V<- norm_coords plot.igraph
 #' @importFrom plotrix thigmophobe.labels
+#' @importFrom graphics layout par plot.new legend
+
 
 plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE, 
                          labelBy="name", pal=NULL, community=NULL, commWin=2, commWb=1, lo=NULL, 

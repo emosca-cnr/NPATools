@@ -12,7 +12,8 @@
 #' @param out_file_prefix prefix for .xlsx and .txt output files
 #' @param min.k minimum number of permutations to obtain valid permutation-based statistics
 #' @param min_tags minimum number of tags to consider the ES; gene sets with tags < min_tags will be excluded
-#' @import BiocParallel openxlsx
+#' @importFrom openxlsx createWorkbook saveWorkbook addWorksheet writeData
+#' @importFrom BiocParallel SerialParam bplapply
 #' @importFrom qvalue qvalue
 #' @importFrom utils write.table
 #' @importFrom stats p.adjust

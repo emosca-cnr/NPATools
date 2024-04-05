@@ -4,9 +4,13 @@
 \alias{find_communities}
 \title{Find topological communities}
 \usage{
-find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, 
-methods=c("fastgreedy", "labprop", "walktrap", "eigen", 
-"multilev", "infomap"))
+find_communities(
+  g = NULL,
+  eWeights = NULL,
+  vWeights = NULL,
+  verbose = TRUE,
+  methods = c("fastgreedy", "multilev")
+)
 }
 \arguments{
 \item{g}{graph}
@@ -25,10 +29,4 @@ list od community objects
 }
 \description{
 Find topological communities
-}
-\examples{
- 
-\dontrun{find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE,
- methods=c("fastgreedy", "labprop", "walktrap", "eigen",
-  "multilev", "infomap"))}
 }

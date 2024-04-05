@@ -2,7 +2,8 @@
 #' @param g igraph object
 #' @param memb vertex membership to community
 #' @param useP whether to calculate p or not
-#' @import igraph
+#' @importFrom igraph is_igraph as_adj
+#' @importFrom stats sd
 #' @export
 
 within_module_degree <-

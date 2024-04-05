@@ -19,7 +19,7 @@
 #'  \item sim_coeff = data.frame with the similarity score calculated between each gene-set pair
 #'  \item plot = enrichment map plot obtained by using `ggraph` package functions. Only if `save_plot = FALSE`
 #' }
-#' @import igraph
+#' @importFrom igraph graph_from_adjacency_matrix clusters induced.subgraph V cluster_fast_greedy E V<- membership sizes
 #' @export
 #'
 enrichment_map <- function(gs_scores=NULL, gene_set_sim=NULL, min_sim=0.7, clustering_f=cluster_fast_greedy, min_comp_size=1,

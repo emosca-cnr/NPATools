@@ -2,12 +2,18 @@
 #' @param G igraph object
 #' @param topList ranked list of vertex names that will be used to define top networks
 #' @param ranks ranks of topList that will be assessed
+#' @param type gsea or ora
 #' @param X0Vector named numeric vector that will be tested with GSEA or ORA. In case of GSEA it will be ranked by decreasing orderg, while in the case of ORA the names of the X0 values grater than 0 will be tested for enrichment, while all X0 names will be the universe.
 #' @param k number of permutations
-#'
+#' @param minComponentSize size of the smallest graph component
+#' @param minNetSize minimum network size
+#' @param minKNes minimum k for considering a NES "confident"
+#' @param BPPARAMGsl BiocParallelParam instance to parallelize over gene sets. See `BiocParallel::bplapply()`
+#' @param BPPARAMK BiocParallelParam instance to paralleliz over permutations. `BiocParallel::bplapply()`
 #' @export
-#' @import BiocParallel igraph
-#' @importFrom stats setNames
+#' @importFrom BiocParallel SerialParam
+#' @importFrom igraph V induced_subgraph
+#' @importFrom stats setNames rnorm
 
 assess_enrichment <-
   function(G = NULL,
@@ -16,12 +22,12 @@ assess_enrichment <-
            X0Vector = NULL,
            type = c("gsea", "ora"),
            k = 99,
-           critical = NULL,
            minComponentSize = 2,
            minNetSize = 10,
            minKNes = 10,
            BPPARAMGsl = NULL,
            BPPARAMK = NULL) {
+    
     type <- match.arg(type, c("gsea", "ora"))
     
     if (is.null(ranks)) {
@@ -29,6 +35,16 @@ assess_enrichment <-
     }
     en_res <- setNames(vector("list", length(ranks)), ranks)
     net_ccf <- en_res
+    
+    if (is.null(BPPARAMGsl)) {
+      BPPARAMGsl <- SerialParam()
+    }
+    
+    if (is.null(BPPARAMK)) {
+      BPPARAMK <- SerialParam()
+    }
+    
+    
     
     #defines the increasing top networks to be tested
     for (i in 1:length(ranks)) {

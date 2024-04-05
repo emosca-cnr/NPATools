@@ -3,19 +3,18 @@
 #' @description Define significance for enriched genes
 #' @param netEnrRes dataframe resulting from `assess_enrichment()`
 #' @param NRRes dataframe resulting from network resampling from package dmfind `dmfind::NR()`
-#' @param columm which column to consider; in case multiple runs have been done
 #' @param sigStatNR which p-value will be considered from NRRes
 #' @param sigStatEn which p-value will be considered from netEnrRes
 #' @param norm if TRUE (default) the two disitribution of -log10(p) will be mapped in the interval [1, 2]
 #' @param top number of top ranks that will be plotted in red
 #' @export
 #' @importFrom plotrix thigmophobe.labels
-#'
+#' @importFrom graphics par points
+
 
 cmp_top_net_scores <-
   function(NRRes = NULL,
            netEnrRes = NULL,
-           column = 1,
            sigStatNR = "p",
            sigStatEn = "p",
            norm = FALSE,

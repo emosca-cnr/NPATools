@@ -38,10 +38,10 @@ ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE
     }
     
     if(!is(X0, "dgCMatrix")){
-        X0 <- Matrix::Matrix(X0, sparse = TRUE)
+        X0 <- Matrix(X0, sparse = TRUE)
     }
     if(!is(W, "dgCMatrix")){
-        W <- Matrix::Matrix(W, sparse = TRUE)
+        W <- Matrix(W, sparse = TRUE)
     }
     
 

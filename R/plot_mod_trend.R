@@ -62,7 +62,7 @@ plot_modu_trend <- function(assessModRes = NULL) {
             "bottom",
             c("Q", "Qmax", "n", "nmax"),
             col = "black",
-            pch = c(16, 17, 1, 2),
+            pch = c(16, 1, 17, 2),
             cex = 0.7
         )
         

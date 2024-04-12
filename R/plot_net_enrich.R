@@ -11,8 +11,8 @@ plot_net_enrich <-
            showTopSig = 10,
            sigStat = "p_adj"){
     
-    en_res <- netEnrRes$en_summary
-    
+    en_res <- netEnrRes$en_summary[order(as.numeric(netEnrRes$en_summary$rank)), ]
+
     par(mfrow = c(1, 2))
     par(mgp = c(1.5, 0.5, 0))
     par(mar = c(3, 3, 3, 1))
@@ -29,7 +29,7 @@ plot_net_enrich <-
       order(yy, decreasing = !(sigStat %in% c("p", "p_adj", "FDRq")))[1:showTopSig]
     
     plot(
-      en_res$rank,
+      as.numeric(en_res$rank),
       en_res$size,
       pch = 16,
       xlab = "rank",

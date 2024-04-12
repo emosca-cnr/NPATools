@@ -46,6 +46,11 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
     out[[i]] <- lapply(gsl, function(x) ora1gs(wb[[i]], bb, x))
     out[[i]] <- as.data.frame(do.call(rbind, out[[i]]), stringsAsFactors = FALSE)
     
+    if(any(out[[i]]$p==0)){
+      cat("P-values with zero values will be set to 1e-323\n")
+      out[[i]]$p[out[[i]]$p==0] <- 1e-323
+    }
+    
     if(wbd_min>0){
       out[[i]] <- out[[i]][out[[i]]$wbd >= wbd_min, ]
     }

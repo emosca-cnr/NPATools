@@ -70,10 +70,12 @@ assess_enrichment <-
             wb = list(wb),
             universe = names(X0Vector),
             gsl = gsl,
-            out_file_prefix = NULL
+            out_file_prefix = NULL,
+            min_size = minNetSize,
+            max_size = max(lengths(gsl))
           )
           en_res <- en_res[[1]][, 1:11]
-        } else{
+       } else{
           stop("Can' find any element of X0Vector > 0\n.")
         }
         
@@ -107,7 +109,9 @@ assess_enrichment <-
             min.k = minKNes,
             BPPARAMGsl = BPPARAMGsl,
             BPPARAMK = BPPARAMK,
-            out_file_prefix = NULL
+            out_file_prefix = NULL,
+            min_size =  minNetSize,
+            max_size = max(lengths(gsl))
           )
         #en_res <- en_res$X0
         en_res <- en_res[[1]][, c(1:9, 11:15)]

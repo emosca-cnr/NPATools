@@ -4,7 +4,13 @@
 \alias{plot_fc}
 \title{Plot functional cartography}
 \usage{
-plot_fc(topNetworks = NULL, labelBy = NULL, hCut = NULL, useP = FALSE)
+plot_fc(
+  topNetworks = NULL,
+  labelBy = NULL,
+  hCut = NULL,
+  useP = FALSE,
+  out_dir = NULL
+)
 }
 \arguments{
 \item{topNetworks}{igraph object}
@@ -14,6 +20,8 @@ plot_fc(topNetworks = NULL, labelBy = NULL, hCut = NULL, useP = FALSE)
 \item{hCut}{where to place the division of the vertical axis}
 
 \item{useP}{whether p is used in the vertical axis}
+
+\item{out_dir}{output directory}
 }
 \description{
 Plot functional cartography

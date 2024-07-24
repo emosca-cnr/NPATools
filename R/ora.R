@@ -46,9 +46,9 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
     out[[i]] <- lapply(gsl, function(x) ora1gs(wb[[i]], bb, x))
     out[[i]] <- as.data.frame(do.call(rbind, out[[i]]), stringsAsFactors = FALSE)
     
-    if(any(out[[i]]$p==0)){
+    if(any(out[[i]]$p_val==0)){
       cat("P-values with zero values will be set to 1e-323\n")
-      out[[i]]$p[out[[i]]$p==0] <- 1e-323
+      out[[i]]$p_val[out[[i]]$p_val==0] <- 1e-323
     }
     
     if(wbd_min>0){
@@ -61,11 +61,11 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
       out[[i]]$N <- length(wb[[i]]) + length(bb)
       out[[i]]$exp <- out[[i]]$wb * out[[i]]$bd / out[[i]]$N
       out[[i]]$id <- rownames(out[[i]])
-      out[[i]]$p_adj <- p.adjust(out[[i]]$p, method = p_adj_method)
+      out[[i]]$p_adj <- p.adjust(out[[i]]$p_val, method = p_adj_method)
       out[[i]]$genes <-   unlist(lapply(gsl[match(out[[i]]$id, names(gsl))], function(x) paste0(sort(x[x %in% wb[[i]]]), collapse = ";")))
       
       #### FROM DOSE
-      qobj <- tryCatch(qvalue(out[[i]]$p, lambda=0.05, pi0.method="bootstrap"), error=function(e) NULL)
+      qobj <- tryCatch(qvalue(out[[i]]$p_val, lambda=0.05, pi0.method="bootstrap"), error=function(e) NULL)
       if (inherits(qobj, "qvalue")) {
         qvalues <- qobj$qvalues
       } else {
@@ -76,7 +76,7 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
       out[[i]]$er <- out[[i]]$wbd / out[[i]]$exp
       out[[i]]$description <- description[match(out[[i]]$id, names(description))]
       
-      out[[i]] <- out[[i]][order(out[[i]]$p_adj, -out[[i]]$er), c('id', 'N', 'wb', 'bb', 'bd', 'wbd', 'exp', 'er', 'p', 'p_adj', 'q_val', 'description', 'genes')]
+      out[[i]] <- out[[i]][order(out[[i]]$p_adj, -out[[i]]$er), c('id', 'N', 'wb', 'bb', 'bd', 'wbd', 'exp', 'er', 'p_val', 'p_adj', 'q_val', 'description', 'genes')]
     }
   }
   
@@ -88,7 +88,7 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
     wb <- createWorkbook()
     
     ### legend
-    legend_txt <- data.frame(column=c("N", "wb", "bb", "bd", "wbd", "exp", "er", "p", "p_adj", "q_val", "genes"), description=c("all considered genes", "genes in the input set", "genes not in the input set", "genes in the pathway", "genes in the input set & in the pathway", "expected wbd in an hypergeometric experiment", "enrichment ratio", "hypergeometric p", "FDR (BH)", "FDR (qvalue)", "genes in the input set & in the pathway"), stringsAsFactors = F)
+    legend_txt <- data.frame(column=c("N", "wb", "bb", "bd", "wbd", "exp", "er", "p_val", "p_adj", "q_val", "genes"), description=c("all considered genes", "genes in the input set", "genes not in the input set", "genes in the pathway", "genes in the input set & in the pathway", "expected wbd in an hypergeometric experiment", "enrichment ratio", "hypergeometric p", "FDR (BH)", "FDR (qvalue)", "genes in the input set & in the pathway"), stringsAsFactors = F)
     addWorksheet(wb, "Legend")
     writeData(wb, "Legend", legend_txt)
     

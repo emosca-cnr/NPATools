@@ -9,15 +9,14 @@
 plot_net_enrich <-
   function(netEnrRes = NULL,
            showTopSig = 10,
-           sigStat = "p_adj"){
+           sigStat = "p_val"){
     
     en_res <- netEnrRes$en_summary[order(as.numeric(netEnrRes$en_summary$rank)), ]
 
-    par(mfrow = c(1, 2))
     par(mgp = c(1.5, 0.5, 0))
     par(mar = c(3, 3, 3, 1))
     
-    if (sigStat %in% c("p", "p_adj", "FDRq")) {
+    if (sigStat %in% c("p_val", "p_adj", "FDRq")) {
       yy <- log10(en_res[, sigStat])
       ylab <- paste0("log10(", sigStat, ")")
     } else{
@@ -26,18 +25,7 @@ plot_net_enrich <-
     }
     
     top_10_idx <-
-      order(yy, decreasing = !(sigStat %in% c("p", "p_adj", "FDRq")))[1:showTopSig]
-    
-    plot(
-      as.numeric(en_res$rank),
-      en_res$size,
-      pch = 16,
-      xlab = "rank",
-      ylab = "n",
-      cex = 0.6,
-      main = "connected components"
-    )
-    lines(en_res$rank, en_res$size)
+      order(yy, decreasing = !(sigStat %in% c("p_val", "p_adj", "FDRq")))[1:showTopSig]
     
     plot(
       en_res$rank,

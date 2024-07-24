@@ -11,7 +11,7 @@ eFDR(real_values = NULL, all_values = NULL, BPPARAM = NULL, correct.max = TRUE)
 
 \item{all_values}{vactor of all values (real + permuted) values}
 
-\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.}
+\item{BPPARAM}{deprecated but kept for compatibility}
 
 \item{correct.max}{logical, to decide if to correct the maximum values to 1 or not}
 }

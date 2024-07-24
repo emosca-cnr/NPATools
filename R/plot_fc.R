@@ -3,17 +3,24 @@
 #' @param labelBy one of the vertex attributes
 #' @param hCut where to place the division of the vertical axis
 #' @param useP whether p is used in the vertical axis 
+#' @param out_dir output directory
 #' @export
 #' @importFrom igraph V get.vertex.attribute
 #' @importFrom plotrix thigmophobe.labels
 #' @importFrom graphics layout par rect points plot.new legend
+#' @importFrom grDevices png dev.off
 
 plot_fc <- function(topNetworks = NULL,
                     labelBy = NULL,
                     hCut = NULL,
-                    useP = FALSE) {
+                    useP = FALSE, out_dir=NULL) {
  
-   
+  if(is.null(out_dir)){
+    out_dir <- getwd()
+  }else{
+    dir.create(out_dir, recursive = T, showWarnings = F)
+  }
+  
   wmZ <- V(topNetworks)$wmd_score
   pc <- V(topNetworks)$P
   maxZscore <- max(wmZ)
@@ -27,6 +34,7 @@ plot_fc <- function(topNetworks = NULL,
     }
   }
   
+  png(file.path(out_dir, "fc.png"), width = 180, height = 180, res=300, units="mm")
   layout(matrix(1:2, ncol = 2), widths = c(0.9, 0.1))
   
   par(mar = (c(4, 4, 1, 1)))
@@ -37,7 +45,7 @@ plot_fc <- function(topNetworks = NULL,
        xlab = "P",
        ylab = "wmd score",)
   
-  #dev.off()
+  
   ### RECT = XLEFT, YBOTTOM, XRIGHT, YTOP
   ####################################
   # horizontal cut : max z-score = author cut : author max z-score
@@ -129,5 +137,5 @@ plot_fc <- function(topNetworks = NULL,
     pch = 15,
     cex = 0.7
   )
-  
+  dev.off()
 }

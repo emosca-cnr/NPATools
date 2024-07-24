@@ -87,6 +87,7 @@ perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, 
   vertex_sets_list <- split(names(vert_deg), vertex_sets)
   
   l_fac <- unlist(lapply(lengths(vertex_sets_list), function(x) factorial(x)))
+  cat("Min possible k:", min(l_fac), "\n")
   if(any(l_fac < k)){
     cat("Possible permutations: ", l_fac, "\n")
     cat("k:", k, "\n")

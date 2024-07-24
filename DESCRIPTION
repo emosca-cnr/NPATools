@@ -1,7 +1,7 @@
 Package: NPATools
 Type: Package
 Title: Tools for analysis of networks and pathways
-Version: 0.2.0
+Version: 0.2.1
 Author: Ettore Mosca
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
 Description: Tools for analysis of networks and pathways.
@@ -11,4 +11,4 @@ LazyData: true
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Suggests: knitr, devtools
-Imports: Matrix, ggplot2, spatstat.explore,  methods, BiocParallel, circlize, ComplexHeatmap, DOSE, igraph, openxlsx, pals, proxy, qvalue, brainGraph, plotrix
+Imports: Matrix, ggplot2, spatstat.explore (<= 3.2-7), methods, BiocParallel, circlize, ComplexHeatmap, DOSE, igraph, openxlsx, pals, proxy, qvalue, brainGraph, plotrix

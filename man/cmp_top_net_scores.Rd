@@ -4,27 +4,16 @@
 \alias{cmp_top_net_scores}
 \title{Compare top networks scores}
 \usage{
-cmp_top_net_scores(
-  NRRes = NULL,
-  netEnrRes = NULL,
-  sigStatNR = "p",
-  sigStatEn = "p",
-  norm = FALSE,
-  top = 5
-)
+cmp_top_net_scores(NRRes = NULL, netEnrRes = NULL, top = 5, out_dir = NULL)
 }
 \arguments{
 \item{NRRes}{dataframe resulting from network resampling from package dmfind `dmfind::NR()`}
 
 \item{netEnrRes}{dataframe resulting from `assess_enrichment()`}
 
-\item{sigStatNR}{which p-value will be considered from NRRes}
-
-\item{sigStatEn}{which p-value will be considered from netEnrRes}
-
-\item{norm}{if TRUE (default) the two disitribution of -log10(p) will be mapped in the interval [1, 2]}
-
 \item{top}{number of top ranks that will be plotted in red}
+
+\item{out_dir}{output directory}
 }
 \description{
 Define significance for enriched genes

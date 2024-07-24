@@ -4,7 +4,7 @@
 \alias{plot_net_enrich}
 \title{Plot network enrichment results}
 \usage{
-plot_net_enrich(netEnrRes = NULL, showTopSig = 10, sigStat = "p_adj")
+plot_net_enrich(netEnrRes = NULL, showTopSig = 10, sigStat = "p_val")
 }
 \arguments{
 \item{netEnrRes}{output of `assess_enrichment()`}

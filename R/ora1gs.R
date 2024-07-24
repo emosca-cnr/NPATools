@@ -10,5 +10,5 @@ ora1gs <- function(wb=NULL, bb=NULL, bd=NULL){
 
   p_out <- phyper(length(wbd), length(wb), length(bb), length(bd), lower.tail = FALSE) + dhyper(length(wbd), length(wb), length(bb), length(bd))
 
-  return(data.frame(wb=length(wb), bb=length(bb), bd=length(bd), wbd=length(wbd), p=p_out, stringsAsFactors = F))
+  return(data.frame(wb=length(wb), bb=length(bb), bd=length(bd), wbd=length(wbd), p_val=p_out, stringsAsFactors = F))
 }

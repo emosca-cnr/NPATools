@@ -3,50 +3,56 @@
 #' @description Define significance for enriched genes
 #' @param netEnrRes dataframe resulting from `assess_enrichment()`
 #' @param NRRes dataframe resulting from network resampling from package dmfind `dmfind::NR()`
-#' @param sigStatNR which p-value will be considered from NRRes
-#' @param sigStatEn which p-value will be considered from netEnrRes
-#' @param norm if TRUE (default) the two disitribution of -log10(p) will be mapped in the interval [1, 2]
 #' @param top number of top ranks that will be plotted in red
+#' @param out_dir output directory
 #' @export
 #' @importFrom plotrix thigmophobe.labels
 #' @importFrom graphics par points
-
+#' @importFrom grDevices png dev.off
 
 cmp_top_net_scores <-
   function(NRRes = NULL,
            netEnrRes = NULL,
-           sigStatNR = "p",
-           sigStatEn = "p",
-           norm = FALSE,
-           top=5) {
+           top=5,
+           out_dir=NULL) {
+    
+    if(is.null(out_dir)){
+      out_dir <- getwd()
+    }else{
+      dir.create(out_dir, recursive = T, showWarnings = F)
+    }
 
     ans <-
       merge(
-        NRRes$NRsummary[, c("rank", sigStatNR)],
-        netEnrRes$en_summary[, c("rank", sigStatEn)],
+        NRRes$NRsummary[, c("rank", "p_val")],
+        netEnrRes$en_summary[, c("rank", "p_val")],
         by = "rank",
         suffixes = c("_NR", "_NE"),
         sort = F
       )
     ans <- ans[order(as.numeric(ans$rank)),]
     
-    xx <- -log10(ans[, 2])
-    #yy <- sapply(as.numeric(netEnrRes$en_summary$id), function(x) sum(p_sorted[1:x] < sigThr) / x)
-    yy <- -log10(ans[, 3])
-    
-    if (norm) {
-      xx <- 1 + (xx - min(xx)) / (max(xx) - min(xx))
-      yy <- 1 + (yy - min(yy)) / (max(yy) - min(yy))
-    }
+    xx <- ans[, 2]
+    yy <- ans[, 3]
     
     #xyarea <- xx_norm*yy_norm
+    #ans$score <- xx + yy
     ans$score <- xx * yy
+    ans$score <- ans$score - (ans$score * log(ans$score))
+    ans$score <- -log10(ans$score)
+    
+    xx <- -log10(xx)
+    yy <- -log10(yy)
+    
+    idx_max <- order(-ans$score)[1:top]
+    cat("Smallest highest scoring network at rank: ", ans$rank[idx_max[1]], "\n")
+        
+    png(file.path(out_dir, "NR_vs_NE.png"), width = 180, height = 100, units="mm", res=300)
     
     par(mfrow = c(1, 2))
     par(mar = c(3, 3, 1, 1))
     par(mgp = c(1.5, 0.5, 0))
     
-    idx_max <- order(-ans$score)[1:top]
     
     if (nrow(unique(ans[, 2:3])) != nrow(ans)) {
       cat("Overlapping points detected, adding some jitter\n")
@@ -57,8 +63,8 @@ cmp_top_net_scores <-
     plot(
       xx,
       yy,
-      xlab = paste0("NR [-log10(", sigStatNR, ")]"),
-      ylab = paste0("NE [-log10(", sigStatEn, ")]"),
+      xlab = paste0("p1 (NR)"),
+      ylab = paste0("p2 (NE)"),
       pch = 16,
       cex = 0.6,
       cex.axis = 0.7,
@@ -78,13 +84,14 @@ cmp_top_net_scores <-
       as.numeric(ans$rank),
       ans$score,
       xlab = "rank",
-      ylab = paste0("NR[-log10(", sigStatNR, ")] * NE[-log10(", sigStatEn, ")]"),
+      ylab = "-log10( P(P1*P2 < p1*p2) )",
       pch = 16,
       cex = 0.6,
       cex.axis = 0.7,
       cex.lab = 0.7,
       col=text_col
     )
+    dev.off()
     
     return(ans)
     

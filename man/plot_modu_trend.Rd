@@ -4,10 +4,12 @@
 \alias{plot_modu_trend}
 \title{Plot modularity trend}
 \usage{
-plot_modu_trend(assessModRes = NULL)
+plot_modu_trend(assessModRes = NULL, out_dir = NULL)
 }
 \arguments{
 \item{assessModRes}{result of `assess_modularity()`}
+
+\item{out_dir}{output directory}
 }
 \value{
 plot

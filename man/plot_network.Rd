@@ -18,8 +18,6 @@ plot_network(
   labelComm = TRUE,
   labelCommCex = 0.8,
   labelCommCol = "black",
-  out_dir = NULL,
-  out_file = "net.png",
   ...
 )
 }
@@ -49,10 +47,6 @@ plot_network(
 \item{labelCommCex}{cex for community labels}
 
 \item{labelCommCol}{color for community labels}
-
-\item{out_dir}{output directory}
-
-\item{out_file}{output file}
 
 \item{...}{additional arguments to `plot.igraph()`}
 }

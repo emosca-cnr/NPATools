@@ -15,26 +15,18 @@
 #' @param labelComm whether to label comminuty or not
 #' @param labelCommCex cex for community labels
 #' @param labelCommCol color for community labels
-#' @param out_dir output directory
-#' @param out_file output file
 #' @param ... additional arguments to `plot.igraph()`
 #' @export
 #' @importFrom igraph get.vertex.attribute V layout_with_fr V<- norm_coords plot.igraph
 #' @importFrom plotrix thigmophobe.labels
 #' @importFrom graphics layout par plot.new legend
-#' @importFrom grDevices png dev.off
 
 
 plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE, 
                          labelBy="name", pal=NULL, community=NULL, commWin=2, commWb=1, lo=NULL, 
-                         legendOff=FALSE, labelComm=TRUE, labelCommCex=0.8, labelCommCol="black", out_dir=NULL, out_file="net.png", ...){
+                         legendOff=FALSE, labelComm=TRUE, labelCommCex=0.8, labelCommCol="black", ...){
   
-  if(is.null(out_dir)){
-    out_dir <- getwd()
-  }else{
-    dir.create(out_dir, recursive = T, showWarnings = F)
-  }
-  
+
   if(!is.null(colorBy)){
     colorValues <- get.vertex.attribute(graph, colorBy)
     if(colorQuant){
@@ -73,8 +65,6 @@ plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE,
   }
   
  
-  png(file.path(out_dir, out_file), width = 180, height = 180, res=300, units="mm")
-  
   do_lgd <- FALSE
   if(!is.null(colorBy) & !legendOff){
     if(colorBy != "comm_id"){
@@ -95,8 +85,7 @@ plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE,
                                         levels=sort(unique(colorValues)))), 
            col=pal, pch=16, bty="n", cex=0.8)
   }
-  dev.off()
-  
+
   if(return_lo){
     return(lo)
   }

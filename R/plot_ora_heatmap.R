@@ -10,7 +10,8 @@
 #' @importFrom pals brewer.purples
 #' @importFrom grid gpar grid.text
 #' @importFrom circlize colorRamp2
-
+#' @export
+#' 
 plot_ora_heatmap <- function(ora_res=NULL, p.stat="p_adj", a=0.25, na_col="khaki", min.p=NA, max_gs=50, ...){
   
   if(length(ora_res)<2){

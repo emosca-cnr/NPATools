@@ -10,20 +10,10 @@
 #' @param min_comp_size minimum size of a community to be considered in the enrichment map
 #'  then all gene-sets are displayed
 #' @param gs_size named vector with size of the gene-sets in `gs_scores`
-#' @return The function returns a list containing: 
-#' \itemize{
-#'  \item igraph = network object used for plotting the enrichment map
-#'  \item network_data = data.frame with layout (X1,X2 columns), name of the gene-sets together with community ids ("comm_id"), 
-#'   score and number of genes ("n_genes")
-#'  \item path_comm_genes = list composed by the genes present in each community
-#'  \item sim_coeff = data.frame with the similarity score calculated between each gene-set pair
-#'  \item plot = enrichment map plot obtained by using `ggraph` package functions. Only if `save_plot = FALSE`
-#' }
 #' @importFrom igraph graph_from_adjacency_matrix clusters induced.subgraph V cluster_fast_greedy E V<- membership sizes
 #' @export
 #'
-enrichment_map <- function(gs_scores=NULL, gene_set_sim=NULL, min_sim=0.7, clustering_f=cluster_fast_greedy, min_comp_size=1,
-                           gs_size=NULL){
+enrichment_map <- function(gs_scores=NULL, gene_set_sim=NULL, min_sim=0.2, clustering_f=cluster_fast_greedy, min_comp_size=1, gs_size=NULL){
   #method=c('overlap')
   #similarity method and coeff----------------
   

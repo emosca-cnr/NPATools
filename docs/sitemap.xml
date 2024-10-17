@@ -76,6 +76,12 @@
     <loc>/reference/get_cdf.html</loc>
   </url>
   <url>
+    <loc>/reference/get_cluster_genes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_gene_set_clusters.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_gs_score.html</loc>
   </url>
   <url>

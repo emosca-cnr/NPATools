@@ -1,7 +1,7 @@
 Package: NPATools
 Type: Package
 Title: Tools for analysis of networks and pathways
-Version: 0.2.1
+Version: 0.3.0
 Author: Ettore Mosca
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
 Description: Tools for analysis of networks and pathways.

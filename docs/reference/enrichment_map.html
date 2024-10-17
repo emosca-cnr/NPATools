@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">NPATools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/enrich.html">ORA and GSEA</a>
+    <a class="dropdown-item" href="../articles/enrich.html">ORA, GSEA and enrichment map</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -51,7 +51,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">enrichment_map</span><span class="op">(</span></span>
 <span>  gs_scores <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_set_sim <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  min_sim <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>  min_sim <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>  clustering_f <span class="op">=</span> <span class="va">cluster_fast_greedy</span>,</span>
 <span>  min_comp_size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  gs_size <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -85,17 +85,6 @@ then all gene-sets are displayed</p></dd>
 <dd><p>named vector with size of the gene-sets in `gs_scores`</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    
-
-<p>The function returns a list containing:</p><ul><li><p>igraph = network object used for plotting the enrichment map</p></li>
-<li><p>network_data = data.frame with layout (X1,X2 columns), name of the gene-sets together with community ids ("comm_id"), 
-  score and number of genes ("n_genes")</p></li>
-<li><p>path_comm_genes = list composed by the genes present in each community</p></li>
-<li><p>sim_coeff = data.frame with the similarity score calculated between each gene-set pair</p></li>
-<li><p>plot = enrichment map plot obtained by using `ggraph` package functions. Only if `save_plot = FALSE`</p></li>
-</ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>enrichment_map() function calculates similarities between each gene-set pair by using `method` metric. Subsequently,

@@ -1,5 +1,5 @@
 ---
-title: "ORA and GSEA"
+title: "ORA, GSEA and enrichment map"
 date: "`r Sys.Date()`"
 package: NPATools
 bibliography: references.bib
@@ -29,15 +29,13 @@ knitr::opts_chunk$set(
 
 In this vignette we will show how to use perform Over-Representatin Analysis (ORA) and Gene Set Enrichment Analysis (GSEA) with NPATools.
 
-# ORA
+# ORA and GSEA
 
 ORA is performed by means of the function `ora()`, which requires a list of one or more gene vectors (`wb`), the reference universe and a list of gene sets to test (`gsl`):
 
 ```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 ora_res <- ora(wb = wb, universe = unverse, gsl = gsl)
 ```
-
-# GSEA
 
 GSEA is performed by means of the function `gsea()`, which requires a matrix with one or more columns of gene-related statistics (`rl`) and a list of gene sets to test (`gsl`):
 
@@ -47,7 +45,7 @@ gsea_res <- gsea(rl=rl, gsl = gsl)
 
 By default, each column of `rl` is sorted in decreasing order.
 
-# Visualization
+## Visualization
 
 The functions `plot_ora_heatmap()` and `plot_gsea_heatmap()` draw heatmaps with results of ORA and GSEA:
 
@@ -56,11 +54,42 @@ plot_ora_heatmap(ora_res, cluster_columns = F, cluster_rows = F, a = .5, na_col 
 plot_gsea_heatmap(gsea_res = gsea_res, cluster_columns = F, cluster_rows = F, a = .5, na_col = "gold")
 ```
 
-# Inter-operability
+## Inter-operability
 
 We provide the functions `ora2enrich()` and `gsea2enrich()` to obtain instances of "enrichResult" class of the package clusterProfiler:
 
 ```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 ora_enrich <- ora2enrich(ora_res, gsl = gsl, wb = wb, universe = unverse)
 gsea_enrich <- gsea2enrich(gsea_res, rl = rl, gsl = gsl)
+```
+
+# Functional clustering and enrichment map
+
+The following procedure calculates an enrichment map and the corresponding gene set clusters. These can be used, for example, to create visualizations where gene-associated values are clustered by gene membership in similar gene sets. This procedure is often called "functional clustering" because gene sets defines gene functions. The two required inputs are:
+
+- gene_set_scores: a named vector of gene set scores;
+- gene_set_list: a named list of gene set vectors.
+
+The first step is the calculation of all-pairs similarities among gene sets:
+
+```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+gene_set_sim <- calc_gs_sim(gene_set_list)
+```
+
+The function is based on `proxy::simil()` and, by default `gene_set_sim()`, uses "Simpson" similarity measure, also known as overlap coefficient; a list of all available measures can be obtained using `summary(proxy::pr_DB)` and more information about a particular measure can be shown by `proxy::pr_DB$get_entry("Simpson")` (see `?proxy::simil()` for further details). Once we have all-pairs similarities we can create the corresponding enrichment map (which requires gene set sizes):
+
+```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+gs_size <- setNames(lengths(gene_set_list), names(gene_set_list))
+em_res <- enrichment_map(gs_scores=gene_set_scores, gene_set_sim=gene_set_sim, gs_size=gs_size)
+```
+
+A relevant argument is `min_sim` (by default 0.2), which defines the minimum threshold for similarity values that will be considered (the others are set to zero). A data frame of gene sets, showing their cluster, score and size can be retrieved using:
+
+```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+gene_set_clusters_df <- get_gene_set_clusters(em_res)
+```
+A named list of gene set vectors that defines gene-cluster membership can be obtained by:
+
+```{r, include=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+clust_genes <- get_cluster_genes(gene_set_clusters=gene_set_clusters_df, gene_set_list=gene_set_list)
 ```

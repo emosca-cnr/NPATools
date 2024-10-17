@@ -10,6 +10,7 @@
 #' @importFrom ComplexHeatmap Heatmap
 #' @importFrom pals brewer.purples
 #' @importFrom grid gpar grid.text
+#' @export
 
 plot_gsea_heatmap <- function(gsea_res=NULL, nes_sign=TRUE, a=0.25, p.stat="FDRq", na_col="khaki", max_gs=50, min.p=NA, ...){
   

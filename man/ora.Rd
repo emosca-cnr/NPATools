@@ -13,7 +13,8 @@ ora(
   wbd_min = 1,
   min_size = 5,
   max_size = 500,
-  out_file_prefix = "ora_res"
+  out_file_prefix = "ora_res",
+  write.txt = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ ora(
 \item{max_size}{maximum gene set size}
 
 \item{out_file_prefix}{prefix for .xlsx and .txt output files}
+
+\item{write.txt}{TRUE/FALSE. Whether to write txt files}
 }
 \description{
 Over Representation Analysis

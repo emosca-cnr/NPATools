@@ -8,13 +8,14 @@
 #' @param max_size maximum gene set size
 #' @param out_file_prefix prefix for .xlsx and .txt output files
 #' @param description optional named vector with gene set description; names must be gene set identifiers
+#' @param write.txt TRUE/FALSE. Whether to write txt files
 #' @importFrom openxlsx createWorkbook saveWorkbook addWorksheet writeData
 #' @importFrom qvalue qvalue
 #' @importFrom stats p.adjust
 #' @importFrom utils write.table
 #' @export
 
-ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', description=NULL, wbd_min=1, min_size=5, max_size=500, out_file_prefix="ora_res"){
+ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', description=NULL, wbd_min=1, min_size=5, max_size=500, out_file_prefix="ora_res", write.txt=FALSE){
   
   #gene set size
   cat("Checking gene sets\n")
@@ -84,7 +85,7 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
   if(!is.null(out_file_prefix)){
     
     out_file_xlsx <- paste0(out_file_prefix, ".xlsx")
-    cat("Writing output to", out_file_xlsx, " and ", paste0(out_file_prefix, ".[run].txt"), "...\n")
+    cat("Writing output...\n")
     wb <- createWorkbook()
     
     ### legend
@@ -97,7 +98,9 @@ ora <- function(wb=NULL, universe=NULL, gsl=NULL, p_adj_method='fdr', descriptio
       addWorksheet(wb, names(out)[i])
       writeData(wb, names(out)[i], out[[i]])
       
-      write.table(out[[i]], file = paste0(out_file_prefix, ".", names(out)[i], ".txt"), row.names = F, sep="\t")
+      if(write.txt){
+        write.table(out[[i]], file = paste0(out_file_prefix, ".", names(out)[i], ".txt"), row.names = F, sep="\t")
+      }
       
     }
     

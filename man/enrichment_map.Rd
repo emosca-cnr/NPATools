@@ -10,7 +10,8 @@ enrichment_map(
   min_sim = 0.2,
   clustering_f = cluster_fast_greedy,
   min_comp_size = 1,
-  gs_size = NULL
+  gs_size = NULL,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -20,12 +21,14 @@ enrichment_map(
 
 \item{min_sim}{threshold for the similarity score between two gene sets}
 
-\item{clustering_f}{greph clustering function, `igraph::cluster_fast_greedy()` by default}
+\item{clustering_f}{graph clustering function, `igraph::cluster_fast_greedy()` by default}
 
 \item{min_comp_size}{minimum size of a community to be considered in the enrichment map
 then all gene-sets are displayed}
 
 \item{gs_size}{named vector with size of the gene-sets in `gs_scores`}
+
+\item{verbose}{verbosity}
 }
 \description{
 This functions calculates similarities between gene-sets and plot a resulting enrichment map

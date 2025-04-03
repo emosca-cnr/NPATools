@@ -4,10 +4,12 @@
 \alias{get_gene_set_clusters}
 \title{Get pathway clusters from enrichment map}
 \usage{
-get_gene_set_clusters(enrichment_map_graph = NULL)
+get_gene_set_clusters(enrichment_map_graph = NULL, gene_set_list = NULL)
 }
 \arguments{
 \item{enrichment_map_graph}{igraph object created by enrichment_map()}
+
+\item{gene_set_list}{gene set list}
 }
 \description{
 Get pathway clusters from enrichment map

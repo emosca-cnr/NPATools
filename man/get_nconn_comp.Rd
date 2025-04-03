@@ -4,12 +4,12 @@
 \alias{get_nconn_comp}
 \title{Extract connected components of at least n vertices}
 \usage{
-get_nconn_comp(x = NULL, n = NULL)
+get_nconn_comp(x = NULL, n = 2)
 }
 \arguments{
 \item{x}{igraph obejct}
 
-\item{n}{minimum size of a connected component}
+\item{n}{minimum size of a connected component, 2 by default}
 }
 \value{
 igraph object

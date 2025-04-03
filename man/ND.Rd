@@ -30,12 +30,10 @@ smaller than \code{eps}}
 }
 \value{
 A matrix with steady state values. If fullOutput is TRUE, a list with:
-\itemize{
 \item{\code{Xs}}{ the smoothed matrix;}
 \item{\code{eps}}{ see above;}
-\item{\code{maxAbsDiff}}{ max(abs(F_t) - abs(F_{t-1}));}
+\item{\code{maxAbsDiff}}{ maximum absolute difference between F(t) and F(t+1);}
 \item{\code{XsAll}}{ transient Xs matrices.}
-}
 }
 \description{
 Network Diffusion

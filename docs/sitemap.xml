@@ -4,6 +4,9 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/articles/NPATools.html</loc>
+  </url>
+  <url>
     <loc>/articles/enrich.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>/reference/get_gs_score.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_kegg_db.html</loc>
   </url>
   <url>
     <loc>/reference/get_nconn_comp.html</loc>

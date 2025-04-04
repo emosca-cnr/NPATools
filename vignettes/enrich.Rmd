@@ -1,6 +1,5 @@
 ---
 title: "ORA, GSEA and enrichment map"
-date: "`r Sys.Date()`"
 package: NPATools
 bibliography: references.bib
 output:

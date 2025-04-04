@@ -1,0 +1,39 @@
+---
+title: "Installation"
+package: NPATools
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Installation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+NPATools requires the following packages: BiocParallel, ComplexHeatmap, devtools, DOSE, KEGGREST, Matrix, brainGraph, circlize, ggplot2, igraph (>= 1.5.0), methods, openxlsx, pals, plotrix, proxy, qvalue and spatstat.univar.
+
+Bioconductor packages can be installed as follows:
+
+```{r, include=TRUE, eval=FALSE}
+if (!require("BiocManager", quietly = TRUE)){
+  install.packages("BiocManager")
+}
+BiocManager::install(c("<packagename1>", "<packagename2>", "..."))
+```
+
+CRAN packages can be installed as follows:
+```{r, include=TRUE, eval=FALSE}
+install.packages(c("<packagename1>", "<packagename2>", "..."))
+```
+  
+Once all dependencies are in place, NPATools can be installed from github as follows:
+```{r, include=TRUE, eval=FALSE}
+devtools::install_github("emosca-cnr/NPATools")
+```
+
+To load the package:
+
+```{r, include=TRUE, eval=FALSE}
+library(NPATools)
+```

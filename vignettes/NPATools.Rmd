@@ -11,7 +11,26 @@ vignette: >
   %\VignetteEncoding{UTF-8}  
 ---
 
-NPATools requires the following packages: BiocParallel, ComplexHeatmap, devtools, DOSE, KEGGREST, Matrix, brainGraph, circlize, ggplot2, igraph (>= 1.5.0), methods, openxlsx, pals, plotrix, proxy, qvalue and spatstat.univar.
+NPATools requires the following packages:
+```{r, include=TRUE, eval=FALSE}
+BiocParallel
+ComplexHeatmap
+devtools
+DOSE
+KEGGREST
+Matrix
+brainGraph
+circlize
+ggplot2
+igraph (>= 1.5.0)
+methods
+openxlsx
+pals
+plotrix
+proxy
+qvalue
+spatstat.univar
+```
 
 Bioconductor packages can be installed as follows:
 

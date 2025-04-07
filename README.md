@@ -12,6 +12,8 @@ The package contains functions to:
  - perform gene-set enrichment analysis (GSEA);
  - plot heatmaps of multiple ORA/GSEA runs.
  
+The package provides a gene-level human interactome derived from STRING v12 (https://string-db.org).
+ 
 Documentation: https://emosca-cnr.github.io/NPATools
 
 Source code: https://github.com/emosca-cnr/NPATools

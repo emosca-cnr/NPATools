@@ -18,8 +18,7 @@
 #' @param ... additional arguments to `plot.igraph()`
 #' @export
 #' @importFrom igraph get.vertex.attribute V layout_with_fr V<- norm_coords plot.igraph
-#' @importFrom plotrix thigmophobe.labels
-#' @importFrom graphics layout par plot.new legend
+#' @importFrom graphics layout par plot.new legend text
 
 
 plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE, 
@@ -72,11 +71,10 @@ plot_network <- function(graph=NULL, colorBy=NULL, colorQuant=TRUE,
       layout(matrix(c(1, 2), ncol=2), widths = c(0.9, 0.2))
     }
   }
-  par(mar=c(1, 1, 1, 1))
-  
+
   plot.igraph(graph, vertex.labels=vertexLabels, layout=lo, ...)
   if(labelComm){
-    thigmophobe.labels(comm_lab_xy[, 1], comm_lab_xy[, 2], labels = network_ann_coords[, 1], cex=labelCommCex, font=2, col=labelCommCol)
+    text(comm_lab_xy[, 1], comm_lab_xy[, 2], labels = network_ann_coords[, 1], cex=labelCommCex, font=2, col=labelCommCol)
   }
   
   if(do_lgd){

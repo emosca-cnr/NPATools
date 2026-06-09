@@ -14,22 +14,24 @@ vignette: >
 NPATools requires the following packages:
 ```{r, include=TRUE, eval=FALSE}
 BiocParallel
-ComplexHeatmap
-devtools
-DOSE
-KEGGREST
-Matrix
 brainGraph
 circlize
+ComplexHeatmap
+DOSE
 ggplot2
+graphics
+grDevices
 igraph (>= 1.5.0)
+KEGGREST
+Matrix
 methods
 openxlsx
 pals
-plotrix
 proxy
 qvalue
+stats
 spatstat.univar
+utils
 ```
 
 Bioconductor packages can be installed as follows:

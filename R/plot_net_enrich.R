@@ -4,7 +4,7 @@
 #' @param showTopSig if not NULL, an integer that indicatesd the number of top significant ranks to display
 #' @param sigStat the quantity to be plotted: for ORA, can be any of "er", "p" or "p_adj"; for GSEA can be "es", "p", "p_val", "nes" or "FDRq"
 #' @export
-#' @importFrom graphics lines
+#' @importFrom graphics lines text
 
 plot_net_enrich <-
   function(netEnrRes = NULL,
@@ -44,7 +44,7 @@ plot_net_enrich <-
              pch = 16,
              cex = 0.6,
              col = "red")
-      thigmophobe.labels(en_res$rank[top_10_idx], yy[top_10_idx], en_res$rank[top_10_idx], cex =
+      text(en_res$rank[top_10_idx], yy[top_10_idx], en_res$rank[top_10_idx], cex =
                            0.7)#, pos = 3)
     }
     

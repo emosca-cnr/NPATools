@@ -5,6 +5,7 @@
 #' @param seed_n optional numeric; to specify the seed for (pseudo) random number generation; using the same seed
 #' @param method method to perform permutation; "simple" permutes vertices only based on vertex sets; "degree" permutes vertices based on vertex_sets and vertex degree
 #' @param vertex_sets optional list with subsets of names(vert_deg); each subset will be permuteted separately; this is useful when distinct sets of vertices have different meaning;
+##' @param vertex_subsets optional list with subsets of names(vert_deg); this will be used to check how many of these elements will fall into each permutation bin
 #' @param cut_par number of intervals or width of the intervals
 #' @param bin_type "interval" will use cut_interval(), "number" will use cut_number() while "width" will use cut_width() function from ggplot2
 #' @return list with k+1 vectors of permutations of names(vert_deg), where the first element of the list contains original names(vert_deg)
@@ -14,7 +15,7 @@
 #' @importFrom stats setNames
 #'
 
-perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, method=c("simple", "degree"), cut_par=20, bin_type=c("interval", "number", "width")){
+perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, vertex_subsets=NULL, method=c("simple", "degree"), cut_par=20, bin_type=c("number", "interval", "width")){
   
   if(!is.null(seed_n)){
     set.seed(seed_n)
@@ -23,7 +24,7 @@ perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, 
   stopifnot(!is.null(names(vert_deg)))
   
   method <- match.arg(method, c("simple", "degree"))
-  bin_type <- match.arg(bin_type, c("interval", "number", "width"))
+  bin_type <- match.arg(bin_type, c("number", "interval", "width"))
   
   cat("Permutation type:", method , "\n")
   cat("Total permutations:", k+1, "\n")
@@ -51,6 +52,8 @@ perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, 
       bins <- as.numeric(cut_width(vert_deg, cut_par)) ### use ggplot2
     }
   }
+  
+  cat("Bins (size):", table(bins), "\n")
   
   if(is.null(vertex_sets)){
     
@@ -80,18 +83,28 @@ perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, 
     
   }
   
+  vertex_subsets_idx <- which(names(vertex_sets) %in% unlist(vertex_subsets))
+  
   vertex_sets <- factor(paste(vertex_sets, bins, sep = "_"))
-  cat("vertex sets and bins:", table(vertex_sets), "\n")
+  vertex_subsets <- vertex_sets[vertex_subsets_idx]
+  table_vertex_sets <- table(vertex_sets)
+  table_vertex_subsets <- table(vertex_subsets)
+  cat("vertex sets and bins (size):", table_vertex_sets, "\n")
+  cat("vertex subsets and bins (size):", table_vertex_subsets, "\n")
+  
   vertex_sets_lev <- levels(vertex_sets)
   
   vertex_sets_list <- split(names(vert_deg), vertex_sets)
   
   l_fac <- unlist(lapply(lengths(vertex_sets_list), function(x) factorial(x)))
-  cat("Min possible k:", min(l_fac), "\n")
+  cat("Permutations of the smallest bin:", min(l_fac), "\n")
   if(any(l_fac < k)){
     cat("Possible permutations: ", l_fac, "\n")
     cat("k:", k, "\n")
     stop("Possible permutations are less than requested, try reducing k, change cut_par or bin_type.\n")
+  }
+  if(!is.null(vertex_subsets)){
+    cat("Combinations ", min(table_vertex_sets), ",", min(table_vertex_subsets), ":", choose(min(table_vertex_sets), min(table_vertex_subsets)), "\n")
   }
   
   ans <- vector("list", length = k+1)
@@ -101,7 +114,7 @@ perm_vertices <- function(vert_deg=NULL, k=99, seed_n = NULL, vertex_sets=NULL, 
     
     perm_i <- ans[[1]] #real permutation
     
-    for(j in 1:length(vertex_sets_lev)){
+    for(j in 1:length(vertex_sets_lev)){ #for each level (bin)
       
       idx <- which(vertex_sets == vertex_sets_lev[j]) #rows of ith-level
       perm_i[idx] <- sample(perm_i[idx], length(perm_i[idx])) #permutaation of idx rows

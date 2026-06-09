@@ -9,9 +9,10 @@ perm_vertices(
   k = 99,
   seed_n = NULL,
   vertex_sets = NULL,
+  vertex_subsets = NULL,
   method = c("simple", "degree"),
   cut_par = 20,
-  bin_type = c("interval", "number", "width")
+  bin_type = c("number", "interval", "width")
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ perm_vertices(
 \item{seed_n}{optional numeric; to specify the seed for (pseudo) random number generation; using the same seed}
 
 \item{vertex_sets}{optional list with subsets of names(vert_deg); each subset will be permuteted separately; this is useful when distinct sets of vertices have different meaning;}
+
+\item{vertex_subsets}{optional list with subsets of names(vert_deg); this will be used to check how many of these elements will fall into each permutation bin}
 
 \item{method}{method to perform permutation; "simple" permutes vertices only based on vertex sets; "degree" permutes vertices based on vertex_sets and vertex degree}
 

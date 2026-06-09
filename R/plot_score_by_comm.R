@@ -4,10 +4,9 @@
 #' @param score_attr  attrubute that contains gene scores; high values are considered significant
 #' @param min_comm_size minimum community size
 #' @param top_genes_to_label number of genes to label
-#' @importFrom plotrix thigmophobe.labels
 #' @importFrom graphics boxplot axis
 #' @importFrom igraph get.vertex.attribute V
-#' @importFrom graphics points
+#' @importFrom graphics points text
 
 #' @export
 
@@ -31,7 +30,7 @@ plot_score_by_comm <- function(g=NULL, comm_attr="comm_id", score_attr=NULL, min
   
   if(any(yy>0.05)){
     top_gg <- names(yy)[order(-yy)[1:min(top_genes_to_label, comm_order[i])]]
-    thigmophobe.labels(xx[1:length(top_gg)], yy[names(yy) %in% top_gg], V(g)$label[match(top_gg, V(g)$name)], cex=0.7, font=2)
+    text(xx[1:length(top_gg)], yy[names(yy) %in% top_gg], V(g)$label[match(top_gg, V(g)$name)], cex=0.7, font=2)
   }
   
   for(i in 2:length(comm_order)){
@@ -44,7 +43,7 @@ plot_score_by_comm <- function(g=NULL, comm_attr="comm_id", score_attr=NULL, min
     
     if(any(yy>0.05)){
       top_gg <- names(yy)[order(-yy)[1:min(top_genes_to_label, comm_order[i])]]
-      thigmophobe.labels(xx[1:length(top_gg)], yy[names(yy) %in% top_gg], V(g)$label[match(top_gg, V(g)$name)], cex=0.7, font=2)
+      text(xx[1:length(top_gg)], yy[names(yy) %in% top_gg], V(g)$label[match(top_gg, V(g)$name)], cex=0.7, font=2)
     }
   }
   

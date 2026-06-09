@@ -101,6 +101,7 @@ functional_cartography <- function(topNetwork = NULL, labelBy = NULL, useP = FAL
   }
   
   V(topNetwork)$R <- df$R
+  V(topNetwork)$Rdef <- df$definition
   V(topNetwork)$P <- df$P
   V(topNetwork)$wmd_score <- df$wmd_score
   

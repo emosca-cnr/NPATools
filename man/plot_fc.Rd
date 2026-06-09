@@ -9,7 +9,10 @@ plot_fc(
   labelBy = NULL,
   hCut = NULL,
   useP = FALSE,
-  out_dir = NULL
+  cex.pt = 0.8,
+  cex.pt.lab = 0.8,
+  font = 1,
+  ...
 )
 }
 \arguments{
@@ -21,7 +24,13 @@ plot_fc(
 
 \item{useP}{whether p is used in the vertical axis}
 
-\item{out_dir}{output directory}
+\item{cex.pt}{point size}
+
+\item{cex.pt.lab}{point label size}
+
+\item{font}{point label font type}
+
+\item{...}{further arguments to plot()}
 }
 \description{
 Plot functional cartography

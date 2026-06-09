@@ -24,7 +24,7 @@
 #' \item{\code{XsAll}}{ transient Xs matrices.}
 #' @export
 #' @importFrom methods is
-#' @importFrom Matrix Matrix
+#' @importFrom Matrix Matrix isSymmetric
 
 ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
                fullOutput=FALSE, verbose=FALSE){
@@ -34,6 +34,8 @@ ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE
         X0 <- X0[match(rownames(W), rownames(X0)), ]
         cat("nrows of X0 and W:", nrow(X0), "\n")
     }
+    
+    stopifnot(isSymmetric(W))
     
     if(!is(X0, "dgCMatrix")){
         X0 <- Matrix(X0, sparse = TRUE)
@@ -74,6 +76,9 @@ ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE
         Fprev <- Xs
 
         if(maxAbsDiff < eps){
+            if(verbose){
+                cat("\nmaxAbsDiff < eps\n")
+            }
             if(finalSmooth){
                 Xs <- Wa %*% Fprev
             }

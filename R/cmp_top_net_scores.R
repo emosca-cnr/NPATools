@@ -6,8 +6,7 @@
 #' @param top number of top ranks that will be plotted in red
 #' @param out_dir output directory
 #' @export
-#' @importFrom plotrix thigmophobe.labels
-#' @importFrom graphics par points
+#' @importFrom graphics par points text
 #' @importFrom grDevices png dev.off
 
 cmp_top_net_scores <-
@@ -78,7 +77,7 @@ cmp_top_net_scores <-
     
     text_col <- rep("black", length(xx))
     text_col[idx_max] <- "red"
-    thigmophobe.labels(xx, yy, ans$rank, cex = 0.6, col = text_col)
+    text(xx, yy, ans$rank, cex = 0.6, col = text_col)
     
     plot(
       as.numeric(ans$rank),

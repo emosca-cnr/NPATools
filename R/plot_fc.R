@@ -3,28 +3,28 @@
 #' @param labelBy one of the vertex attributes
 #' @param hCut where to place the division of the vertical axis
 #' @param useP whether p is used in the vertical axis 
-#' @param out_dir output directory
+#' @param cex.pt point size
+#' @param cex.pt.lab point label size
+#' @param font point label font type
+#' @param ... further arguments to plot()
 #' @export
 #' @importFrom igraph V get.vertex.attribute
-#' @importFrom plotrix thigmophobe.labels
-#' @importFrom graphics layout par rect points plot.new legend
-#' @importFrom grDevices png dev.off
+#' @importFrom graphics rect points text
 
 plot_fc <- function(topNetworks = NULL,
                     labelBy = NULL,
                     hCut = NULL,
-                    useP = FALSE, out_dir=NULL) {
- 
-  if(is.null(out_dir)){
-    out_dir <- getwd()
-  }else{
-    dir.create(out_dir, recursive = T, showWarnings = F)
-  }
+                    useP = FALSE,
+                    cex.pt=0.8,
+                    cex.pt.lab=0.8,
+                    font=1,
+                    ...
+){
   
   wmZ <- V(topNetworks)$wmd_score
   pc <- V(topNetworks)$P
   maxZscore <- max(wmZ)
-  minZscore <- min(wmZ - 1)
+  minZscore <- min(wmZ - .5)
   
   if (is.null(hCut)) {
     if (useP) {
@@ -34,16 +34,19 @@ plot_fc <- function(topNetworks = NULL,
     }
   }
   
-  png(file.path(out_dir, "fc.png"), width = 180, height = 180, res=300, units="mm")
-  layout(matrix(1:2, ncol = 2), widths = c(0.9, 0.1))
+  #png(file.path(out_dir, "fc.png"), width = 180, height = 180, res=300, units="mm")
+  #layout(matrix(1:2, ncol = 2), widths = c(0.9, 0.1))
   
-  par(mar = (c(4, 4, 1, 1)))
+  #par(mar = (c(4, 4, 1, 1)))
   
   plot(pc,
        wmZ,
        xlim = c(0, 1),
        xlab = "P",
-       ylab = "wmd score",)
+       ylab = "z",
+       ylim=c(minZscore, round(max(wmZ)+1e-6, digits = 0)),
+       col=NA,
+       ...)
   
   
   ### RECT = XLEFT, YBOTTOM, XRIGHT, YTOP
@@ -51,12 +54,12 @@ plot_fc <- function(topNetworks = NULL,
   # horizontal cut : max z-score = author cut : author max z-score
   ### NON-HUBS: z < 2.5 - proportional to  2.5*2.5/8 = 0.78125
   
-  par(xpd = F)
+  #par(xpd = F)
   
   # for R1: ULTRA PERIPHERAL NODES (p<=0.05) = nodes with all
   # their links within their module
   rect(-0.04,
-       minZscore,
+       minZscore-200,
        0.05,
        hCut,
        col = "ivory4",
@@ -64,7 +67,7 @@ plot_fc <- function(topNetworks = NULL,
   # for R2: PERIPHERAL NODES (0.05 < p <= 0.62) = nodes with
   # most links within their module
   rect(0.05,
-       minZscore,
+       minZscore-200,
        0.62,
        hCut,
        col = "lightsalmon",
@@ -72,21 +75,26 @@ plot_fc <- function(topNetworks = NULL,
   # for R3: NON-HUB CONNECTOR NODES (0.62 < p <= 0.8) = nodes
   # with many links to other modules
   rect(0.62,
-       minZscore,
+       minZscore-200,
        0.8,
        hCut,
        col = "darkseagreen",
        border = NA)
   # for R4: NON-HUB KINLESS NODES (p > 0.8) = nodes with links
   # homogeneously distributed among all modules
-  rect(0.8, minZscore, 1.3, hCut, col = "slateblue2", border = NA)
+  rect(0.8,
+       minZscore - 200,
+       1.3,
+       hCut,
+       col = "slateblue2",
+       border = NA)
   ### HUBS : z > 2.5
   # for R5: PROVINCIAL HUBS (p <= 0.3) = hub nodes with the vast
   # majority of links within their module
   rect(-0.3,
        hCut,
        0.3,
-       maxZscore + 0.2,
+       maxZscore + 200,
        col = "lightyellow",
        border = NA)
   # for R6: CONNECTOR HUBS (0.3 < p <= 0.75) = hubs with many
@@ -94,7 +102,7 @@ plot_fc <- function(topNetworks = NULL,
   rect(0.3,
        hCut,
        0.75,
-       maxZscore + 0.2,
+       maxZscore + 200,
        col = "mistyrose",
        border = NA)
   # for R7: KINLESS HUBS (p > 0.75) = hubs with links homogeneously
@@ -102,7 +110,7 @@ plot_fc <- function(topNetworks = NULL,
   rect(0.75,
        hCut,
        1.3,
-       maxZscore + 0.2,
+       maxZscore + 200,
        col = "gray90",
        border = NA)
   
@@ -110,32 +118,13 @@ plot_fc <- function(topNetworks = NULL,
     pc,
     wmZ,
     xlim = c(0, 1),
-    xlab = "P",
-    ylab = "wmd score",
-    pch = 16
+    cex=cex.pt,
+    ...
   )
   
   if (!is.null(labelBy)) {
     vlab <- get.vertex.attribute(topNetworks, name = labelBy)
-    thigmophobe.labels(pc, wmZ, vlab, cex = 0.8, font = 2)
+    text(pc, wmZ, vlab, cex = cex.pt.lab, font = font)
   }
-  
-  par(mar = (c(.1, .1, 0.1, 0.1)))
-  plot.new()
-  legend(
-    "center",
-    paste0("R", 1:7),
-    col = c(
-      "ivory4",
-      "lightsalmon",
-      "darkseagreen",
-      "slateblue2",
-      "lightyellow",
-      "mistyrose",
-      "gray90"
-    ),
-    pch = 15,
-    cex = 0.7
-  )
-  dev.off()
+
 }

@@ -7,9 +7,9 @@
 cmp_top_net_scores(NRRes = NULL, netEnrRes = NULL, top = 5, out_dir = NULL)
 }
 \arguments{
-\item{NRRes}{dataframe resulting from network resampling from package dmfind `dmfind::NR()`}
+\item{NRRes}{dataframe resulting from network resampling from package dmfind \code{dmfind::NR()}}
 
-\item{netEnrRes}{dataframe resulting from `assess_enrichment()`}
+\item{netEnrRes}{dataframe resulting from \code{assess_enrichment()}}
 
 \item{top}{number of top ranks that will be plotted in red}
 

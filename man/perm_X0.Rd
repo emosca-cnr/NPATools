@@ -9,7 +9,7 @@ perm_X0(X0 = NULL, perms = NULL)
 \arguments{
 \item{X0}{matrix; a score matrix X0, in which each column (layer) is a score vector over all vertices of A.}
 
-\item{perms}{list of permutations of the rownames of X0, obtained by means of `permute_vertices()`}
+\item{perms}{list of permutations of the rownames of X0, obtained by means of \code{permute_vertices()}}
 }
 \value{
 list with permutations of X0 (where the first element of the list contains real data)

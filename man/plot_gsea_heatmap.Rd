@@ -30,7 +30,7 @@ plot_gsea_heatmap(
 
 \item{min.p}{p-values below this values will be set to NA}
 
-\item{...}{further arguments to `ComplexHeatmap::Heatmap()`}
+\item{...}{further arguments to \code{ComplexHeatmap::Heatmap()}}
 }
 \description{
 Plot heatmap of GSEA results for multiple runs

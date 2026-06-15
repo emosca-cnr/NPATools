@@ -21,7 +21,7 @@ find_communities(
 
 \item{verbose}{TRUE/FALSE}
 
-\item{methods}{one or more of "fastgreedy", "labprop", "walktrap", 
+\item{methods}{one or more of "fastgreedy", "labprop", "walktrap",
 "eigen", "multilev", "infomap"}
 }
 \value{

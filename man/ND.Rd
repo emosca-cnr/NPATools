@@ -8,18 +8,18 @@ ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE,
 fullOutput=FALSE, verbose=FALSE)
 }
 \arguments{
-\item{X0}{vector or matrix composed of column vectors with initial 
+\item{X0}{vector or matrix composed of column vectors with initial
 distribution of information}
 
-\item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1, 
+\item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1,
 see normalize_adj_mat function}
 
 \item{alpha}{numeric, the smothing factor}
 
 \item{nMax}{numeric, maximum number of iterations}
 
-\item{eps}{numeric, the iteration will stop when the maximum difference 
-between matrix Xs between two consecutive iteraction is 
+\item{eps}{numeric, the iteration will stop when the maximum difference
+between matrix Xs between two consecutive iteraction is
 smaller than \code{eps}}
 
 \item{finalSmooth}{TRUE/FALSE, whether to do the final step of smoothing}

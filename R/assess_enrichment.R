@@ -20,7 +20,7 @@ assess_enrichment <-
            topList = NULL,
            ranks = NULL,
            X0Vector = NULL,
-           type = c("gsea", "ora"),
+           type = c("ora", "gsea"),
            k = 99,
            minComponentSize = 2,
            minNetSize = 10,
@@ -28,7 +28,7 @@ assess_enrichment <-
            BPPARAMGsl = NULL,
            BPPARAMK = NULL) {
     
-    type <- match.arg(type, c("gsea", "ora"))
+    type <- match.arg(type, c("ora", "gsea"))
     
     if (is.null(ranks)) {
       ranks <- seq(10, length(topList), by = 10)

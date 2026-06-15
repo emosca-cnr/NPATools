@@ -8,8 +8,9 @@ Description: Tools for the analysis of molecular networks and pathways.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE) 
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Suggests: knitr, devtools
-Imports: BiocParallel, brainGraph, circlize, ComplexHeatmap, DOSE, ggplot2, graphics, grDevices, igraph (>= 1.5.0), KEGGREST, Matrix, methods, openxlsx, pals, proxy, qvalue, stats, spatstat.univar, utils
+Imports: BiocParallel, brainGraph, circlize, ComplexHeatmap, DOSE, ggplot2, graphics, grDevices, igraph (>= 1.5.0), KEGGREST, Matrix, methods, openxlsx, pals, pracma, proxy, qvalue, reshape2, stats, spatstat.univar, utils
 Depends: R (>= 3.5.0)

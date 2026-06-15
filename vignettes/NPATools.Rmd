@@ -29,6 +29,7 @@ openxlsx
 pals
 proxy
 qvalue
+reshape2
 stats
 spatstat.univar
 utils

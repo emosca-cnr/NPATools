@@ -12,17 +12,17 @@ weightBetween=1)
 
 \item{network}{pathway network}
 
-\item{weightWithin}{value to weight the attraction between two vertices 
+\item{weightWithin}{value to weight the attraction between two vertices
 of the same community}
 
-\item{weightBetween}{value to weight the attraction between two vertices 
+\item{weightBetween}{value to weight the attraction between two vertices
 of two disntict communities}
 }
 \value{
 vector of edge weights
 }
 \description{
-Function for the assignment of edges weights in order to 
+Function for the assignment of edges weights in order to
 better visualize the communities
 }
 \examples{

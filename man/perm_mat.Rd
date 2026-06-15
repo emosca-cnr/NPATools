@@ -9,7 +9,7 @@ perm_mat(X = NULL, perms = NULL, columns = FALSE)
 \arguments{
 \item{X}{matrix; a score matrix X, in which each column (layer) is a score vector over all vertices of A.}
 
-\item{perms}{list of permutations of the rownames of X, obtained by means of `permute_vertices()`.}
+\item{perms}{list of permutations of the rownames of X, obtained by means of \code{permute_vertices()}.}
 
 \item{columns}{whether to apply the permutation to the columns.}
 }

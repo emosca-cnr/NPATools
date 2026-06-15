@@ -7,7 +7,7 @@
 plot_modu_trend(assessModRes = NULL, out_dir = NULL)
 }
 \arguments{
-\item{assessModRes}{result of `assess_modularity()`}
+\item{assessModRes}{result of \code{assess_modularity()}}
 
 \item{out_dir}{output directory}
 }

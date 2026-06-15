@@ -24,7 +24,7 @@ gsea2enrich(
 
 \item{max_size}{maximum gene set size}
 
-\item{decreasing}{TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to `ncol(rl)`. If NULL, all #' @export}
+\item{decreasing}{TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to \code{ncol(rl)}. If NULL, all #' @export}
 }
 \description{
 Create a gseaResult instance from Ulisse GSEA result

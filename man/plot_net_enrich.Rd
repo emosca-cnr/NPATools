@@ -7,7 +7,7 @@
 plot_net_enrich(netEnrRes = NULL, showTopSig = 10, sigStat = "p_val")
 }
 \arguments{
-\item{netEnrRes}{output of `assess_enrichment()`}
+\item{netEnrRes}{output of \code{assess_enrichment()}}
 
 \item{showTopSig}{if not NULL, an integer that indicatesd the number of top significant ranks to display}
 

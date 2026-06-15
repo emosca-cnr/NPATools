@@ -7,7 +7,7 @@
 calc_p(X = NULL, type = c("g", "l"))
 }
 \arguments{
-\item{X}{list of matrices, where the first is the one obtained with real data and the others are obtained through permutations. 
+\item{X}{list of matrices, where the first is the one obtained with real data and the others are obtained through permutations.
 The matrices should be 1 column matrices with the same order.}
 
 \item{type}{g for >=, l <= than the real values}

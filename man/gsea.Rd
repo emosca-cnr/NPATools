@@ -33,9 +33,9 @@ gsea(
 
 \item{min_tags}{minimum number of tags to consider the ES; gene sets with tags < min_tags will be excluded}
 
-\item{abs_val}{TRUE/FALSE vector that specifies whether to consider absolute values or not in each column of rl; must be of length equal to `ncol(rl)`. If NULL, values will be considered as they are provided}
+\item{abs_val}{TRUE/FALSE vector that specifies whether to consider absolute values or not in each column of rl; must be of length equal to \code{ncol(rl)}. If NULL, values will be considered as they are provided}
 
-\item{decreasing}{TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to `ncol(rl)`. If NULL, all columns will be ranked in decreasing order}
+\item{decreasing}{TRUE/FALSE vector that specifies whether to order each column of rl decreasingly or not; must be of length equal to \code{ncol(rl)}. If NULL, all columns will be ranked in decreasing order}
 
 \item{BPPARAMGsl}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mc_cores_path x mc_cores_perm}
 

@@ -9,7 +9,7 @@ assess_enrichment(
   topList = NULL,
   ranks = NULL,
   X0Vector = NULL,
-  type = c("gsea", "ora"),
+  type = c("ora", "gsea"),
   k = 99,
   minComponentSize = 2,
   minNetSize = 10,
@@ -37,9 +37,9 @@ assess_enrichment(
 
 \item{minKNes}{minimum k for considering a NES "confident"}
 
-\item{BPPARAMGsl}{BiocParallelParam instance to parallelize over gene sets. See `BiocParallel::bplapply()`}
+\item{BPPARAMGsl}{BiocParallelParam instance to parallelize over gene sets. See \code{BiocParallel::bplapply()}}
 
-\item{BPPARAMK}{BiocParallelParam instance to paralleliz over permutations. `BiocParallel::bplapply()`}
+\item{BPPARAMK}{BiocParallelParam instance to paralleliz over permutations. \code{BiocParallel::bplapply()}}
 }
 \description{
 assess enrichment of the top networks

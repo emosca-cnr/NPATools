@@ -5,26 +5,17 @@
 \title{Assess modularity}
 \usage{
 assess_modularity(
-  G = NULL,
-  vertices = NULL,
-  ranks = NULL,
+  g_CC_LCC = NULL,
   commMethods = c("fastgreedy", "multilev"),
-  BPPARAM = NULL,
-  minComponentSize = 2
+  BPPARAM = NULL
 )
 }
 \arguments{
-\item{G}{igraph object}
-
-\item{vertices}{set of (top ranking) vertices to study}
-
-\item{ranks}{ranks at which the modularity will be computes}
+\item{g_CC_LCC}{list of CC and LCC as produced by means of calc_CC_LCC()}
 
 \item{commMethods}{community method(s) that will be considered}
 
 \item{BPPARAM}{BBPARAM}
-
-\item{minComponentSize}{minimum size of connected components}
 }
 \description{
 Assess modularity

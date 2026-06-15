@@ -48,9 +48,9 @@ plot_network(
 
 \item{labelCommCol}{color for community labels}
 
-\item{...}{additional arguments to `plot.igraph()`}
+\item{...}{additional arguments to \code{plot.igraph()}}
 }
 \description{
-Extraction and plotting of connected subnetworks 
+Extraction and plotting of connected subnetworks
 from a graph and a set of selected vertices
 }

@@ -31,6 +31,9 @@
     <loc>/reference/assign_communities.html</loc>
   </url>
   <url>
+    <loc>/reference/calc_CC_LCC.html</loc>
+  </url>
+  <url>
     <loc>/reference/calc_gs_perm.html</loc>
   </url>
   <url>
@@ -142,13 +145,25 @@
     <loc>/reference/plot_network.html</loc>
   </url>
   <url>
+    <loc>/reference/plot_network_scores.html</loc>
+  </url>
+  <url>
     <loc>/reference/plot_ora_heatmap.html</loc>
   </url>
   <url>
     <loc>/reference/plot_score_by_comm.html</loc>
   </url>
   <url>
+    <loc>/reference/score_networks.html</loc>
+  </url>
+  <url>
+    <loc>/reference/score_networks_summary.html</loc>
+  </url>
+  <url>
     <loc>/reference/string.v12.Entrez.ntm.700.400.k3.html</loc>
+  </url>
+  <url>
+    <loc>/reference/theme_science.html</loc>
   </url>
   <url>
     <loc>/reference/within_module_degree.html</loc>

@@ -2,36 +2,22 @@
 % Please edit documentation in R/plot_fc.R
 \name{plot_fc}
 \alias{plot_fc}
-\title{Plot functional cartography}
+\title{Plot the functional cartography of the network}
 \usage{
-plot_fc(
-  topNetworks = NULL,
-  labelBy = NULL,
-  hCut = NULL,
-  useP = FALSE,
-  cex.pt = 0.8,
-  cex.pt.lab = 0.8,
-  font = 1,
-  ...
-)
+plot_fc(topNetworks = NULL, labelBy = NULL, hCut = NULL, useP = FALSE)
 }
 \arguments{
 \item{topNetworks}{igraph object}
 
-\item{labelBy}{one of the vertex attributes}
+\item{labelBy}{optional, one of the vertex attributes}
 
-\item{hCut}{where to place the division of the vertical axis}
+\item{hCut}{optional, where to place the division of the vertical axis}
 
-\item{useP}{whether p is used in the vertical axis}
-
-\item{cex.pt}{point size}
-
-\item{cex.pt.lab}{point label size}
-
-\item{font}{point label font type}
-
-\item{...}{further arguments to plot()}
+\item{useP}{whether the p-value associated with the z-score was used}
+}
+\value{
+ggplo2 object
 }
 \description{
-Plot functional cartography
+Plot the functional cartography of the network
 }

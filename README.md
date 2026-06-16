@@ -10,7 +10,9 @@ The package contains functions to:
  - create an enrichment map;
  - perform over-representation analysis (ORA);
  - perform gene-set enrichment analysis (GSEA);
- - plot heatmaps of multiple ORA/GSEA runs.
+ - plot heatmaps of multiple ORA/GSEA runs;
+ - obtain the functional cartography of a network.
+ 
  
 The package provides a gene-level human interactome derived from STRING v12 (https://string-db.org).
  

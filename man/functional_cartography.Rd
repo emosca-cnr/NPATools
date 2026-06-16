@@ -2,7 +2,7 @@
 % Please edit documentation in R/functional_cartography.R
 \name{functional_cartography}
 \alias{functional_cartography}
-\title{pc_wmz Calculate participation coefficient and within module degree z-score}
+\title{Calculate participation coefficient and within module degree z-score}
 \usage{
 functional_cartography(
   topNetwork = NULL,

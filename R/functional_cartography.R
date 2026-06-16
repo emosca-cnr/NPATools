@@ -1,4 +1,4 @@
-#' pc_wmz Calculate participation coefficient and within module degree z-score
+#' Calculate participation coefficient and within module degree z-score
 #'
 #' @description Calculate participation coefficient
 #' and within module degree z-score
@@ -103,7 +103,7 @@ functional_cartography <- function(topNetwork = NULL, labelBy = NULL, useP = FAL
   V(topNetwork)$R <- df$R
   V(topNetwork)$Rdef <- df$definition
   V(topNetwork)$P <- df$P
-  V(topNetwork)$wmd_score <- df$wmd_score
+  V(topNetwork)$z <- df$wmd_score
   
   
   return(topNetwork)

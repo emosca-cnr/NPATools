@@ -1,30 +1,29 @@
-#' Plot functional cartography
+#' Plot the functional cartography of the network
 #' @param topNetworks igraph object
-#' @param labelBy one of the vertex attributes
-#' @param hCut where to place the division of the vertical axis
-#' @param useP whether p is used in the vertical axis 
-#' @param cex.pt point size
-#' @param cex.pt.lab point label size
-#' @param font point label font type
-#' @param ... further arguments to plot()
+#' @param labelBy optional, one of the vertex attributes
+#' @param hCut optional, where to place the division of the vertical axis
+#' @param useP whether the p-value associated with the z-score was used
 #' @export
-#' @importFrom igraph V get.vertex.attribute
-#' @importFrom graphics rect points text
-
-plot_fc <- function(topNetworks = NULL,
-                    labelBy = NULL,
-                    hCut = NULL,
-                    useP = FALSE,
-                    cex.pt=0.8,
-                    cex.pt.lab=0.8,
-                    font=1,
-                    ...
-){
+#' @importFrom igraph vcount vertex_attr
+#' @importFrom ggplot2 set_theme ggplot coord_cartesian geom_rect scale_fill_manual geom_point geom_text theme
+#' @returns ggplo2 object
+ 
+plot_fc <- function(topNetworks = NULL, labelBy = NULL, hCut = NULL, useP = FALSE){
   
-  wmZ <- V(topNetworks)$wmd_score
-  pc <- V(topNetworks)$P
-  maxZscore <- max(wmZ)
-  minZscore <- min(wmZ - .5)
+  x <- xend <- y <- yend <- class <- label <- P <- z <- NULL # Setting the variables to NULL first
+  
+  set_theme(theme_science())
+  
+  if (!is.null(labelBy)) {
+    vlab <- vertex_attr(topNetworks, name = labelBy)
+  }else{
+    vlab <- rep("", vcount(topNetworks))
+  }
+  
+  plot_data <- data.frame(P=V(topNetworks)$P, z=V(topNetworks)$wmd_score, label=vlab)
+  
+  maxZscore <- max(plot_data$z)
+  minZscore <- min(plot_data$z)
   
   if (is.null(hCut)) {
     if (useP) {
@@ -34,97 +33,19 @@ plot_fc <- function(topNetworks = NULL,
     }
   }
   
-  #png(file.path(out_dir, "fc.png"), width = 180, height = 180, res=300, units="mm")
-  #layout(matrix(1:2, ncol = 2), widths = c(0.9, 0.1))
+  plot_rects <- data.frame(x=c(-1, 0.05, 0.62, 0.8, -1, 0.3, 0.75), xend=c(0.05, 0.62, 0.8, 2, 0.3, 0.75, 2), y=c(minZscore-1, minZscore-1, minZscore-1, minZscore-1, hCut, hCut, hCut), yend=c(hCut, hCut, hCut, hCut, maxZscore+1, maxZscore+1, maxZscore+1), class=c("R1", "R2", "R3", "R4", "R5", "R6", "R7"))
   
-  #par(mar = (c(4, 4, 1, 1)))
+  col <- c("ivory4", "lightsalmon", "darkseagreen", "slateblue2", "lightyellow", "mistyrose", "gray90")
   
-  plot(pc,
-       wmZ,
-       xlim = c(0, 1),
-       xlab = "P",
-       ylab = "z",
-       ylim=c(minZscore, round(max(wmZ)+1e-6, digits = 0)),
-       col=NA,
-       ...)
+  p <- ggplot() +
+    coord_cartesian(xlim = c(0, 1), ylim = c(minZscore, maxZscore)) +
+    geom_rect(data = plot_rects, aes(xmin = x, xmax = xend, ymin = y, ymax = yend, fill = class)) +
+    scale_fill_manual(values = col) +
+    geom_point(data = plot_data, aes(x=P, y=z)) +
+    geom_text(data = plot_data, aes(x=P, y=z, label=label), nudge_y = -0.1) +
+    theme(axis.title.y = element_text(angle = 0, vjust = 0.5))
   
+  return(p)
   
-  ### RECT = XLEFT, YBOTTOM, XRIGHT, YTOP
-  ####################################
-  # horizontal cut : max z-score = author cut : author max z-score
-  ### NON-HUBS: z < 2.5 - proportional to  2.5*2.5/8 = 0.78125
-  
-  #par(xpd = F)
-  
-  # for R1: ULTRA PERIPHERAL NODES (p<=0.05) = nodes with all
-  # their links within their module
-  rect(-0.04,
-       minZscore-200,
-       0.05,
-       hCut,
-       col = "ivory4",
-       border = NA)
-  # for R2: PERIPHERAL NODES (0.05 < p <= 0.62) = nodes with
-  # most links within their module
-  rect(0.05,
-       minZscore-200,
-       0.62,
-       hCut,
-       col = "lightsalmon",
-       border = NA)
-  # for R3: NON-HUB CONNECTOR NODES (0.62 < p <= 0.8) = nodes
-  # with many links to other modules
-  rect(0.62,
-       minZscore-200,
-       0.8,
-       hCut,
-       col = "darkseagreen",
-       border = NA)
-  # for R4: NON-HUB KINLESS NODES (p > 0.8) = nodes with links
-  # homogeneously distributed among all modules
-  rect(0.8,
-       minZscore - 200,
-       1.3,
-       hCut,
-       col = "slateblue2",
-       border = NA)
-  ### HUBS : z > 2.5
-  # for R5: PROVINCIAL HUBS (p <= 0.3) = hub nodes with the vast
-  # majority of links within their module
-  rect(-0.3,
-       hCut,
-       0.3,
-       maxZscore + 200,
-       col = "lightyellow",
-       border = NA)
-  # for R6: CONNECTOR HUBS (0.3 < p <= 0.75) = hubs with many
-  # links to most of the other modules
-  rect(0.3,
-       hCut,
-       0.75,
-       maxZscore + 200,
-       col = "mistyrose",
-       border = NA)
-  # for R7: KINLESS HUBS (p > 0.75) = hubs with links homogeneously
-  # distributed among all modules
-  rect(0.75,
-       hCut,
-       1.3,
-       maxZscore + 200,
-       col = "gray90",
-       border = NA)
-  
-  points(
-    pc,
-    wmZ,
-    xlim = c(0, 1),
-    cex=cex.pt,
-    ...
-  )
-  
-  if (!is.null(labelBy)) {
-    vlab <- get.vertex.attribute(topNetworks, name = labelBy)
-    text(pc, wmZ, vlab, cex = cex.pt.lab, font = font)
-  }
-
 }
+

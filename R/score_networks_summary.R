@@ -34,6 +34,7 @@ score_networks_summary <- function(net_scores = NULL, LCC=FALSE, minpeakdistance
 	}
 	
 	ans$not_linkers <- 1 - net_scores$linkers / max(net_scores$linkers)
+	ans$not_linkers[is.nan(ans$not_linkers )] <- 1 #because NaN arises from the absence of linkers
 
 	ans$y <- ans$z_n + ans$X0_n + ans$Q_n + ans$not_linkers
 	
